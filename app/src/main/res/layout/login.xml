@@ -48,7 +48,7 @@
             android:inputType="textPassword"
             android:lines="1" />
     </android.support.design.widget.TextInputLayout>
-</>
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center_vertical|center_horizontal"

@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 import com.example.dell.c1ean.R;
 
 /**
- * Create by Eskii on 2018/11/28
+ * Create by 李雯晴 on 2018/11/28
  * 启动页
  */
 public class StartActivity extends AppCompatActivity {

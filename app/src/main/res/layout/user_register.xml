@@ -48,7 +48,7 @@
         <EditText
             android:id="@+id/confirmPassword"
             android:layout_width="200dp"
-            android:hint="密码"
+            android:hint="确认密码"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:lines="1" />

@@ -9,13 +9,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.dell.c1ean.Application.BaseAppliction;
-import com.example.dell.c1ean.Bean.Worker;
+import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.RegisterDAO;
+import com.example.dell.c1ean.DAO.WorkerDao;
 import com.example.dell.c1ean.R;
 
 /**
- * Created by Eskii on 2018/11/29.
+ * Created by 李雯晴 on 2018/11/29.
  * 员工和公司注册界面
  */
 
@@ -25,12 +26,14 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
     private ImageView back,register;
     private RegisterDAO registerDAO;
     private String type;
+    private BaseApplication baseApplication;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workercompany_register);
 
-        type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");  //获取注册的用户类型
 
         initView();
     }
@@ -43,6 +46,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
         t3 = findViewById(R.id.t3);
         back = findViewById(R.id.back);
         register = findViewById(R.id.register);
+
+        baseApplication = (BaseApplication)getApplication();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,17 +65,42 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
                 String phone = t1.getEditText().getText().toString();
                 String pwd = t2.getEditText().getText().toString();
                 String cpwd = t3.getEditText().getText().toString();
-                registerDAO = new RegisterDAO((BaseAppliction)getApplication());
+                registerDAO = new RegisterDAO((BaseApplication)getApplication());
 
                 if (validateCode(code)&&validateTel(phone)&&validatePassword(pwd,cpwd)){
-                    if (registerDAO.existValid(type,phone)){
-                        if (type.equals("家政人员")){
 
+                    if (type.equals("家政人员")){
+                        if (registerDAO.existValid(type,phone)){
+
+                            if (registerDAO.isRegister(type,phone)){
+                                Toast.makeText(WorkerCompanyRegisterActivity.this, "您已注册，请登录", Toast.LENGTH_SHORT).show();
+
+                            }else {
+
+                                registerDAO.setPassword(type,phone,pwd);
+                                Toast.makeText(WorkerCompanyRegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }else {
-
+                            Toast.makeText(WorkerCompanyRegisterActivity.this, "请联系您的公司添加您的信息", Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(WorkerCompanyRegisterActivity.this, "用户已存在", Toast.LENGTH_SHORT).show();
+                        if(registerDAO.existValid(type,phone)){
+
+                            if (registerDAO.isRegister(type,phone)){
+                                Toast.makeText(WorkerCompanyRegisterActivity.this, "您已注册，请登录", Toast.LENGTH_SHORT).show();
+
+                            }else {
+                                Toast.makeText(WorkerCompanyRegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }else {
+                            Toast.makeText(WorkerCompanyRegisterActivity.this, "请先联系客服提交公司信息审核", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.example.dell.c1ean.R;
 
 /**
- * Created by Eskii on 2018/11/29.
+ * Created by 李雯晴 on 2018/11/29.
  * 选择注册类型的界面
  */
 

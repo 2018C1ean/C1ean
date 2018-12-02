@@ -6,19 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dell.c1ean.Application.BaseAppliction;
+import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.Bean.User;
 import com.example.dell.c1ean.DAO.RegisterDAO;
 import com.example.dell.c1ean.DAO.UserDao;
 import com.example.dell.c1ean.R;
 
 /**
- * Created by Eskii on 2018/11/30.
+ * Created by 李雯晴 on 2018/11/30.
  * 用户注册界面
  */
 
@@ -52,8 +50,8 @@ public class UserRegisterActivity extends AppCompatActivity {
                 String pwd = pwdt.getEditText().getText().toString();
                 String cpwd = confirmpwdt.getEditText().getText().toString();
                 String name = namet.getEditText().getText().toString();
-                registerDAO = new RegisterDAO((BaseAppliction)getApplication());
-                userDao = ((BaseAppliction) getApplication()).getUserDao();
+                registerDAO = new RegisterDAO((BaseApplication)getApplication());
+                userDao = ((BaseApplication) getApplication()).getUserDao();
 
                 if (validateTel(phone)&&validatePassword(pwd,cpwd)&&validateName(name)) {
                         if (registerDAO.existValid("用户", phone)) {    //检验用户是否存在

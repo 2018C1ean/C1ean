@@ -22,28 +22,28 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         CompanyDao.createTable(db, ifNotExists);
-        OrderDao.createTable(db, ifNotExists);
-        UserDao.createTable(db, ifNotExists);
-        WorkerDao.createTable(db, ifNotExists);
-        WalletDao.createTable(db, ifNotExists);
         CompanyActivityDao.createTable(db, ifNotExists);
+        OrderDao.createTable(db, ifNotExists);
         OrderPaymentDao.createTable(db, ifNotExists);
+        UserDao.createTable(db, ifNotExists);
         UserInaccountDao.createTable(db, ifNotExists);
         UserOutaccountDao.createTable(db, ifNotExists);
+        WalletDao.createTable(db, ifNotExists);
+        WorkerDao.createTable(db, ifNotExists);
         WorkerTimeTableDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         CompanyDao.dropTable(db, ifExists);
-        OrderDao.dropTable(db, ifExists);
-        UserDao.dropTable(db, ifExists);
-        WorkerDao.dropTable(db, ifExists);
-        WalletDao.dropTable(db, ifExists);
         CompanyActivityDao.dropTable(db, ifExists);
+        OrderDao.dropTable(db, ifExists);
         OrderPaymentDao.dropTable(db, ifExists);
+        UserDao.dropTable(db, ifExists);
         UserInaccountDao.dropTable(db, ifExists);
         UserOutaccountDao.dropTable(db, ifExists);
+        WalletDao.dropTable(db, ifExists);
+        WorkerDao.dropTable(db, ifExists);
         WorkerTimeTableDao.dropTable(db, ifExists);
     }
 
@@ -64,14 +64,14 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(CompanyDao.class);
-        registerDaoClass(OrderDao.class);
-        registerDaoClass(UserDao.class);
-        registerDaoClass(WorkerDao.class);
-        registerDaoClass(WalletDao.class);
         registerDaoClass(CompanyActivityDao.class);
+        registerDaoClass(OrderDao.class);
         registerDaoClass(OrderPaymentDao.class);
+        registerDaoClass(UserDao.class);
         registerDaoClass(UserInaccountDao.class);
         registerDaoClass(UserOutaccountDao.class);
+        registerDaoClass(WalletDao.class);
+        registerDaoClass(WorkerDao.class);
         registerDaoClass(WorkerTimeTableDao.class);
     }
 

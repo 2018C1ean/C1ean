@@ -3,16 +3,18 @@ package com.example.dell.c1ean.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
 import com.example.dell.c1ean.R;
+
 /**
- * Created by Eskii on 2018/11/30.
- * 首页
+ * Created by DELL on 2018/12/2.
  */
 
-public class UserHomePageActivity extends AppCompatActivity {
+public class CompanyHomePageActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.userhomepage);
+        setContentView(R.layout.company_homepage);
     }
 }

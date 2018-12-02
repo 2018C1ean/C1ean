@@ -8,15 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dell.c1ean.Application.BaseAppliction;
+import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.DAO.LoginDAO;
 import com.example.dell.c1ean.R;
 
 /**
- * Created by Eskii on 2018/11/21.
+ * Created by 李雯晴 on 2018/11/21.
  * 登录界面
  */
 
@@ -41,7 +40,7 @@ public class LoginActivity extends AppCompatActivity{
         login = findViewById(R.id.login);
         spinner = findViewById(R.id.userType);
         back = findViewById(R.id.back);
-        loginDAO = new LoginDAO((BaseAppliction) getApplication());
+        loginDAO = new LoginDAO((BaseApplication) getApplication());
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +63,14 @@ public class LoginActivity extends AppCompatActivity{
                                     finish();
                                     break;
                                 case "家政人员":
-                                    Intent intent1 = new Intent();
-
+                                    Intent intent1 = new Intent(LoginActivity.this,WorkerHomePageActivity.class);
+                                    startActivity(intent1);
+                                    finish();
                                     break;
                                 case "家政公司":
-                                    Intent intent2 = new Intent();
-
+                                    Intent intent2 = new Intent(LoginActivity.this,CompanyHomePageActivity.class);
+                                    startActivity(intent2);
+                                    finish();
                                     break;
                             }
                         }else {

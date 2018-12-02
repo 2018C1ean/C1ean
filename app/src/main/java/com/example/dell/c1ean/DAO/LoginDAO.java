@@ -1,33 +1,32 @@
 package com.example.dell.c1ean.DAO;
 
-import com.example.dell.c1ean.Application.BaseAppliction;
+import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.Bean.Company;
 import com.example.dell.c1ean.Bean.User;
 import com.example.dell.c1ean.Bean.Worker;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Eskii on 2018/11/30.
+ * Created by 李雯晴 on 2018/11/30.
  * 登录验证方法
  */
 
 public class LoginDAO {
 
-    private BaseAppliction baseAppliction;
+    private BaseApplication baseApplication;
     private UserDao userDao;
     private CompanyDao companyDao;
     private WorkerDao workerDao;
 
-    public LoginDAO(BaseAppliction baseAppliction) {
+    public LoginDAO(BaseApplication baseApplication) {
 
-        this.baseAppliction = baseAppliction;
-        userDao = baseAppliction.getUserDao();
-        companyDao = baseAppliction.getCompanyDao();
-        workerDao = baseAppliction.getWorkerDao();
+        this.baseApplication = baseApplication;
+        userDao = baseApplication.getUserDao();
+        companyDao = baseApplication.getCompanyDao();
+        workerDao = baseApplication.getWorkerDao();
     }
 
     /**
@@ -85,8 +84,8 @@ public class LoginDAO {
                 queryBuilder = companyDao.queryBuilder().where(CompanyDao.Properties.Company_tel.eq(tel),CompanyDao.Properties.Password.eq(password));
                 break;
         }
-        List list = queryBuilder.list();
-        if (list.size() > 0){
+
+        if (queryBuilder.list().size() > 0){
             return true;
         }else return false;
 
