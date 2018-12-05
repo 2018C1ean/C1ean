@@ -2,14 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/title_bar"/>
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/back"
+        android:layout_width="35dp"
+        android:background="@mipmap/left"
+        android:layout_height="35dp" />
+    <TextView
+        android:layout_below="@id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:typeface="serif"
+        android:text="@string/app_name"
+        android:textColor="@color/colorTheme"
+        android:textSize="50sp"/>
     <LinearLayout
+        android:id="@+id/line1"
+        android:padding="30dp"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@mipmap/username"/>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/t0"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <EditText
@@ -18,8 +45,19 @@
             android:lines="1"
             android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:background="@mipmap/user"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
     <android.support.design.widget.TextInputLayout
         android:id="@+id/t1"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <EditText
@@ -29,11 +67,22 @@
             android:inputType="phone"
             android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@mipmap/pwd"/>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <EditText
+            android:layout_marginLeft="20dp"
             android:id="@+id/password"
             android:layout_width="300dp"
             android:hint="密码"
@@ -41,49 +90,41 @@
             android:inputType="textPassword"
             android:lines="1" />
     </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/t3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/confirmPassword"
-            android:layout_width="300dp"
-            android:hint="确认密码"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:lines="1" />
-    </android.support.design.widget.TextInputLayout>
-</LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <LinearLayout
-            android:background="@drawable/circle_button"
-            android:gravity="center_horizontal|center_vertical"
-            android:layout_width="60dp"
-            android:layout_height="60dp">
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="35dp"
-                android:background="@mipmap/back"
-                android:layout_height="35dp" />
         </LinearLayout>
         <LinearLayout
-            android:layout_marginLeft="80dp"
-        android:background="@drawable/circle_button"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_width="60dp"
-        android:layout_height="60dp">
-        <ImageView
-            android:id="@+id/register"
-            android:layout_width="35dp"
-            android:background="@mipmap/next"
-            android:layout_height="35dp" />
-    </LinearLayout>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@mipmap/pwd"/>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/t3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/confirmPassword"
+                    android:layout_width="300dp"
+                    android:hint="密码"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:lines="1" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+</LinearLayout>
+    <Button
+        android:id="@+id/register"
+        android:layout_below="@id/line1"
+        android:padding="10dp"
+        android:text="注册"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/activityMarginTop"
+        android:textColor="@color/colorWhite"
+        android:layout_centerInParent="true"
+        android:layout_width="@dimen/buttonWidth"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lable_shape"/>
 </RelativeLayout>

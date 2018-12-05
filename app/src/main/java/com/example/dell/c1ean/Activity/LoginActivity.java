@@ -6,10 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.dell.c1ean.Activity.Company.CompanyMainPageActivity;
+import com.example.dell.c1ean.Activity.User.UserMainPageActivity;
+import com.example.dell.c1ean.Activity.Worker.WorkerMainPageActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.DAO.LoginDAO;
 import com.example.dell.c1ean.R;
@@ -22,9 +26,11 @@ import com.example.dell.c1ean.R;
 public class LoginActivity extends AppCompatActivity{
 
     private TextInputLayout tel,pwd;
-    private ImageView login,back;
+    private ImageView back;
+    private Button login;
     private Spinner spinner;
     private LoginDAO loginDAO;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +64,17 @@ public class LoginActivity extends AppCompatActivity{
                         if (loginDAO.passwordValid(usertype,phone,password)){   //判断密码是否正确
                             switch (usertype){
                                 case "用户":
-                                    Intent intent = new Intent(LoginActivity.this,UserHomePageActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this,UserMainPageActivity.class);
                                     startActivity(intent);  //跳转到用户首页
                                     finish();
                                     break;
                                 case "家政人员":
-                                    Intent intent1 = new Intent(LoginActivity.this,WorkerHomePageActivity.class);
+                                    Intent intent1 = new Intent(LoginActivity.this,WorkerMainPageActivity.class);
                                     startActivity(intent1);
                                     finish();
                                     break;
                                 case "家政公司":
-                                    Intent intent2 = new Intent(LoginActivity.this,CompanyHomePageActivity.class);
+                                    Intent intent2 = new Intent(LoginActivity.this,CompanyMainPageActivity.class);
                                     startActivity(intent2);
                                     finish();
                                     break;

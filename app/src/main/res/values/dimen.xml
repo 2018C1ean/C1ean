@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imgSize">30dp</dimen>
+    <dimen name="addImgSize">60dp</dimen>
+    <dimen name="cardElevation">5dp</dimen>
+    <dimen name="activityMarginTop">30dp</dimen>
+    <dimen name="activityTextSize">16sp</dimen>
+    <dimen name="activityMarginLeft">20dp</dimen>
+    <dimen name="buttonWidth">300dp</dimen>
+</resources>

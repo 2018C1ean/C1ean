@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,7 +24,8 @@ import com.example.dell.c1ean.R;
 public class WorkerCompanyRegisterActivity extends AppCompatActivity{
 
     private TextInputLayout t0,t1,t2,t3;
-    private ImageView back,register;
+    private ImageView back;
+    private Button register;
     private RegisterDAO registerDAO;
     private String type;
     private BaseApplication baseApplication;

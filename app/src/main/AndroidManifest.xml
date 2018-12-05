@@ -20,15 +20,15 @@
         <activity android:name=".Activity.LoginActivity"/>
         <activity android:name=".Activity.LoginRegisterActivity"/>
         <activity android:name=".Activity.RegisterTypeActivity"/>
-        <activity android:name=".Activity.UserHomePageActivity"/>
+        <activity android:name=".Activity.User.UserMainPageActivity"/>
         <activity android:name=".Activity.UserRegisterActivity"/>
         <activity android:name=".Activity.WorkerCompanyRegisterActivity"/>
         <activity android:name=".Activity.ADMINISTRATOR.AddCompanyActivity"/>
         <activity android:name=".Activity.ADMINISTRATOR.AdministratorActivity"/>
         <activity android:name=".Activity.ADMINISTRATOR.CompanyManageActivity"/>
         <activity android:name=".Activity.ADMINISTRATOR.CompanyItemActivity"/>
-        <activity android:name=".Activity.CompanyHomePageActivity"/>
-        <activity android:name=".Activity.WorkerHomePageActivity"/>
+        <activity android:name=".Activity.Company.CompanyMainPageActivity"/>
+        <activity android:name=".Activity.Worker.WorkerMainPageActivity"/>
     </application>
 
 </manifest>

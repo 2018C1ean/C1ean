@@ -8,4 +8,6 @@
     <color name="colorTheme">#4cbcfa</color>
     <color name="colorBackground">#eff8f9</color>
     <color name="colorBlack">#000</color>
+    <color name="colorRed">#f50303</color>
+    <color name="colorGray">#f9f7f7</color>
 </resources>
