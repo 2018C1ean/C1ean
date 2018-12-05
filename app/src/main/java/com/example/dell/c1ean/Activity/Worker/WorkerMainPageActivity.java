@@ -53,10 +53,6 @@ public class WorkerMainPageActivity extends AppCompatActivity{
         tabViewChildList.add(tabViewChild1);
         tabViewChildList.add(tabViewChild2);
 
-        tabView.setTextViewSelectedColor(Color.parseColor("#4cbcfa"));  //设置获得焦点文字颜色
-        tabView.setTabViewDefaultPosition(0);      //设置启动页面
-        tabView.setImageViewHeight(100);         //设置图片高度
-        tabView.setTextViewSize(10);
         tabView.setTabViewChild(tabViewChildList, getSupportFragmentManager());
         tabView.setTextViewSelectedColor(Color.parseColor("#4cbcfa"));  //设置获得焦点文字颜色
         tabView.setTabViewDefaultPosition(0);      //设置启动页面
