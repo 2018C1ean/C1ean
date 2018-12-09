@@ -30,14 +30,14 @@ public class CompanyActivity {
     @NotNull
     private Long company_id;    //举办的公司id
     @NotNull
-    private int uses;   //用户可使用次数
+    private String uses;   //用户可使用次数
 
 
-    @Generated(hash = 2144064723)
+    @Generated(hash = 1346299346)
     public CompanyActivity(Long id, @NotNull String title, @NotNull String type,
             @NotNull String img, @NotNull String start_time,
             @NotNull String end_time, @NotNull Float price,
-            @NotNull Long company_id, int uses) {
+            @NotNull Long company_id, @NotNull String uses) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -52,7 +52,6 @@ public class CompanyActivity {
     @Generated(hash = 1389486425)
     public CompanyActivity() {
     }
-
 
     public Long getId() {
         return id;
@@ -118,11 +117,17 @@ public class CompanyActivity {
         this.company_id = company_id;
     }
 
-    public int getUses() {
+    public String getUses() {
         return uses;
     }
 
-    public void setUses(int uses) {
+    public void setUses(String uses) {
         this.uses = uses;
+    }
+
+    @Override
+    public String toString() {
+        return getId()+"\n"+getImg()+"\n"+getTitle()+"\n"+getType()+"\n"+getStart_time()+"\n"+getStart_time()+"\n"
+                +getPrice()+"\n"+getUses()+"\n"+getCompany_id();
     }
 }

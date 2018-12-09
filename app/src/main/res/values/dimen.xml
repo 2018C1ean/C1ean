@@ -6,5 +6,12 @@
     <dimen name="activityMarginTop">30dp</dimen>
     <dimen name="activityTextSize">16sp</dimen>
     <dimen name="activityMarginLeft">20dp</dimen>
-    <dimen name="buttonWidth">300dp</dimen>
+    <dimen name="buttonWidth">250dp</dimen>
+    <dimen name="buttonMarginTop">10dp</dimen>
+    <dimen name="buttonPadding">10dp</dimen>
+    <dimen name="activityImgWidth">175dp</dimen>
+    <dimen name="activityImgHeight">131dp</dimen>
+    <dimen name="activityCardHeight">220dp</dimen>
+    <dimen name="textSmall">12sp</dimen>
+    <dimen name="marginBottom">20dp</dimen>
 </resources>

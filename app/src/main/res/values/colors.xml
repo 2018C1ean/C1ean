@@ -10,4 +10,7 @@
     <color name="colorBlack">#000</color>
     <color name="colorRed">#f50303</color>
     <color name="colorGray">#f9f7f7</color>
+    <color name="colorOrange">#fa9b02</color>
+    <color name="colorClearWhite">#8fffffff</color>
+    <color name="colorClearBlack">#70000000</color>
 </resources>

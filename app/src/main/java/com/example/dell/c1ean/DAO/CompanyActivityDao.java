@@ -32,7 +32,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         public final static Property End_time = new Property(5, String.class, "end_time", false, "END_TIME");
         public final static Property Price = new Property(6, float.class, "price", false, "PRICE");
         public final static Property Company_id = new Property(7, long.class, "company_id", false, "COMPANY_ID");
-        public final static Property Uses = new Property(8, int.class, "uses", false, "USES");
+        public final static Property Uses = new Property(8, String.class, "uses", false, "USES");
     }
 
 
@@ -56,7 +56,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
                 "\"END_TIME\" TEXT NOT NULL ," + // 5: end_time
                 "\"PRICE\" REAL NOT NULL ," + // 6: price
                 "\"COMPANY_ID\" INTEGER NOT NULL ," + // 7: company_id
-                "\"USES\" INTEGER NOT NULL );"); // 8: uses
+                "\"USES\" TEXT NOT NULL );"); // 8: uses
     }
 
     /** Drops the underlying database table. */
@@ -80,7 +80,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         stmt.bindString(6, entity.getEnd_time());
         stmt.bindDouble(7, entity.getPrice());
         stmt.bindLong(8, entity.getCompany_id());
-        stmt.bindLong(9, entity.getUses());
+        stmt.bindString(9, entity.getUses());
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         stmt.bindString(6, entity.getEnd_time());
         stmt.bindDouble(7, entity.getPrice());
         stmt.bindLong(8, entity.getCompany_id());
-        stmt.bindLong(9, entity.getUses());
+        stmt.bindString(9, entity.getUses());
     }
 
     @Override
@@ -117,7 +117,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
             cursor.getString(offset + 5), // end_time
             cursor.getFloat(offset + 6), // price
             cursor.getLong(offset + 7), // company_id
-            cursor.getInt(offset + 8) // uses
+            cursor.getString(offset + 8) // uses
         );
         return entity;
     }
@@ -132,7 +132,7 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         entity.setEnd_time(cursor.getString(offset + 5));
         entity.setPrice(cursor.getFloat(offset + 6));
         entity.setCompany_id(cursor.getLong(offset + 7));
-        entity.setUses(cursor.getInt(offset + 8));
+        entity.setUses(cursor.getString(offset + 8));
      }
     
     @Override

@@ -90,4 +90,24 @@ public class LoginDAO {
         }else return false;
 
     }
+
+    public Long getId(String type,String phone){
+
+        Long id = null;
+        switch (type){
+            case "用户":
+                User user = userDao.queryBuilder().where(UserDao.Properties.Tel.eq(phone)).unique();
+                id = user.getId();
+                break;
+            case "家政人员":
+                Worker worker = workerDao.queryBuilder().where(WorkerDao.Properties.Worker_tel.eq(phone)).unique();
+                id = worker.getWorker_id();
+                break;
+            case "家政公司":
+                Company company = companyDao.queryBuilder().where(CompanyDao.Properties.Company_tel.eq(phone)).unique();
+                id = company.getCompany_id();
+                break;
+        }
+        return id;
+    }
 }

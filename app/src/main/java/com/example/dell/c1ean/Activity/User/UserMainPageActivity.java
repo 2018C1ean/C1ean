@@ -3,6 +3,7 @@ package com.example.dell.c1ean.Activity.User;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,5 +72,18 @@ public class UserMainPageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (userHomePageFragment == null){
+            userHomePageFragment = new UserHomePageFragment();
+        }else if (userActivityFragment == null){
+            userActivityFragment = new UserActivityFragment();
+        }else if (userOrdersFragment == null){
+            userOrdersFragment = new UserOrdersFragment();
+        }else if (personalPageFragment == null){
+            personalPageFragment = new PersonalPageFragment();
+        }
     }
 }

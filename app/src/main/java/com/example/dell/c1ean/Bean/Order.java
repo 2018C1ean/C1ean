@@ -50,6 +50,8 @@ public class Order {
     private String userEvaluation;  //用户评价
     private String workerEvaluation;    //阿姨回复
     private int star;   //用户评价星级
+    private Long activity_id;
+
     @NotNull
     private int isActivity; //是否是商家发布的活动
     @Generated(hash = 1041702162)
@@ -66,13 +68,12 @@ public class Order {
     public Order() {
     }
 
-    @Generated(hash = 1767418604)
-    public Order(Long id, @NotNull Long user_id, @NotNull Long worker_id,
-            Long company_id, @NotNull String type, @NotNull Float area,
-            @NotNull String userLocation, @NotNull Float money,
-            @NotNull String orderTime, @NotNull String bookingTime,
+    @Generated(hash = 689239822)
+    public Order(Long id, @NotNull Long user_id, @NotNull Long worker_id, Long company_id,
+            @NotNull String type, @NotNull Float area, @NotNull String userLocation,
+            @NotNull Float money, @NotNull String orderTime, @NotNull String bookingTime,
             @NotNull String payTime, int state, String userEvaluation,
-            String workerEvaluation, int star, int isActivity) {
+            String workerEvaluation, int star, Long activity_id, int isActivity) {
         this.id = id;
         this.user_id = user_id;
         this.worker_id = worker_id;
@@ -88,6 +89,7 @@ public class Order {
         this.userEvaluation = userEvaluation;
         this.workerEvaluation = workerEvaluation;
         this.star = star;
+        this.activity_id = activity_id;
         this.isActivity = isActivity;
     }
 
@@ -278,6 +280,14 @@ public class Order {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getOrderDao() : null;
+    }
+
+    public Long getActivity_id() {
+        return this.activity_id;
+    }
+
+    public void setActivity_id(Long activity_id) {
+        this.activity_id = activity_id;
     }
 
 }

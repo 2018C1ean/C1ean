@@ -135,7 +135,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         ObjectAnimator alphaLogin = ObjectAnimator.ofFloat(tvLogin, "alpha", 0, 1);
         ObjectAnimator alphaRegister = ObjectAnimator.ofFloat(tvRegister, "alpha", 0, 1);
         final AnimatorSet bottomAnim = new AnimatorSet();
-        bottomAnim.setDuration(800);
+        bottomAnim.setDuration(500);
         //同时执行控件平移和alpha渐变动画
         bottomAnim.play(tranLogin).with(tranRegister).with(alphaLogin).with(alphaRegister);
 
@@ -159,7 +159,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         ObjectAnimator scaleXLogo = ObjectAnimator.ofFloat(ivLogo, "scaleX", 1f, 0.75f);
         ObjectAnimator scaleYLogo = ObjectAnimator.ofFloat(ivLogo, "scaleY", 1f, 0.75f);
         AnimatorSet logoAnim = new AnimatorSet();
-        logoAnim.setDuration(800);
+        logoAnim.setDuration(500);
         logoAnim.play(tranLogo).with(scaleXLogo).with(scaleYLogo);
         logoAnim.start();
         logoAnim.addListener(new AnimatorListenerAdapter() {

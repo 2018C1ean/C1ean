@@ -45,7 +45,8 @@ public class OrderDao extends AbstractDao<Order, Long> {
         public final static Property UserEvaluation = new Property(12, String.class, "userEvaluation", false, "USER_EVALUATION");
         public final static Property WorkerEvaluation = new Property(13, String.class, "workerEvaluation", false, "WORKER_EVALUATION");
         public final static Property Star = new Property(14, int.class, "star", false, "STAR");
-        public final static Property IsActivity = new Property(15, int.class, "isActivity", false, "IS_ACTIVITY");
+        public final static Property Activity_id = new Property(15, Long.class, "activity_id", false, "ACTIVITY_ID");
+        public final static Property IsActivity = new Property(16, int.class, "isActivity", false, "IS_ACTIVITY");
     }
 
     private DaoSession daoSession;
@@ -79,7 +80,8 @@ public class OrderDao extends AbstractDao<Order, Long> {
                 "\"USER_EVALUATION\" TEXT," + // 12: userEvaluation
                 "\"WORKER_EVALUATION\" TEXT," + // 13: workerEvaluation
                 "\"STAR\" INTEGER NOT NULL ," + // 14: star
-                "\"IS_ACTIVITY\" INTEGER NOT NULL );"); // 15: isActivity
+                "\"ACTIVITY_ID\" INTEGER," + // 15: activity_id
+                "\"IS_ACTIVITY\" INTEGER NOT NULL );"); // 16: isActivity
     }
 
     /** Drops the underlying database table. */
@@ -122,7 +124,12 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(14, workerEvaluation);
         }
         stmt.bindLong(15, entity.getStar());
-        stmt.bindLong(16, entity.getIsActivity());
+ 
+        Long activity_id = entity.getActivity_id();
+        if (activity_id != null) {
+            stmt.bindLong(16, activity_id);
+        }
+        stmt.bindLong(17, entity.getIsActivity());
     }
 
     @Override
@@ -159,7 +166,12 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(14, workerEvaluation);
         }
         stmt.bindLong(15, entity.getStar());
-        stmt.bindLong(16, entity.getIsActivity());
+ 
+        Long activity_id = entity.getActivity_id();
+        if (activity_id != null) {
+            stmt.bindLong(16, activity_id);
+        }
+        stmt.bindLong(17, entity.getIsActivity());
     }
 
     @Override
@@ -191,7 +203,8 @@ public class OrderDao extends AbstractDao<Order, Long> {
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // userEvaluation
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // workerEvaluation
             cursor.getInt(offset + 14), // star
-            cursor.getInt(offset + 15) // isActivity
+            cursor.isNull(offset + 15) ? null : cursor.getLong(offset + 15), // activity_id
+            cursor.getInt(offset + 16) // isActivity
         );
         return entity;
     }
@@ -213,7 +226,8 @@ public class OrderDao extends AbstractDao<Order, Long> {
         entity.setUserEvaluation(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setWorkerEvaluation(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setStar(cursor.getInt(offset + 14));
-        entity.setIsActivity(cursor.getInt(offset + 15));
+        entity.setActivity_id(cursor.isNull(offset + 15) ? null : cursor.getLong(offset + 15));
+        entity.setIsActivity(cursor.getInt(offset + 16));
      }
     
     @Override

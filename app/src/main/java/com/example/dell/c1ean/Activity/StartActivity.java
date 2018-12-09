@@ -25,7 +25,7 @@ private Handler handler = new Handler();
             public void run() {
                 gotoLoginRegister();
             }
-        }, 800);    //启动页显示800毫秒后跳转到注册登录界面
+        }, 500);    //启动页显示800毫秒后跳转到注册登录界面
     }
 
     /**
