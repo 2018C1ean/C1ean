@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dell.c1ean.Fragment.User.UserActivityFragment;
 import com.example.dell.c1ean.Fragment.User.UserHomePageFragment;
 import com.example.dell.c1ean.Fragment.User.UserOrdersFragment;
 import com.example.dell.c1ean.Fragment.PersonalPageFragment;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 import com.ycl.tabview.library.TabView;
 import com.ycl.tabview.library.TabViewChild;
 
@@ -26,6 +30,7 @@ import java.util.List;
 
 public class UserMainPageActivity extends AppCompatActivity {
 
+    private long exitTime;
     private TabView tabView;
     private UserHomePageFragment userHomePageFragment;
     private UserOrdersFragment userOrdersFragment;
@@ -35,8 +40,10 @@ public class UserMainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_mainpage);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
+        ImmersionBar.with(this).init();
+        setContentView(R.layout.mainpage);
         initView();
 
     }
@@ -85,5 +92,28 @@ public class UserMainPageActivity extends AppCompatActivity {
         }else if (personalPageFragment == null){
             personalPageFragment = new PersonalPageFragment();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
+
+    /**
+     * 重写返回键，实现双击退出效果
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(UserMainPageActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                UserMainPageActivity.this.finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

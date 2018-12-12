@@ -15,6 +15,10 @@ import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.RegisterDAO;
 import com.example.dell.c1ean.DAO.WorkerDao;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by 李雯晴 on 2018/11/29.
@@ -34,6 +38,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workercompany_register);
+
+        ImmersionBar.with(this).init();
 
         type = getIntent().getStringExtra("type");  //获取注册的用户类型
 
@@ -138,17 +144,28 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
             return false;
         }return true;
     }
+
     /**
      * 验证手机号是否为空
-     * @param string
+     * @param phone
      * @return
      */
-    private boolean validateTel(String string){
-        if (string.isEmpty()){
-            showError(t1,"手机号不能为空");
+    private boolean validateTel(String phone){
+        if (phone.isEmpty()) {
             return false;
-        }return true;
+        }
+        if (phone.length() != 11) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("^1[3,5]\\d{9}||18[6,8,9]\\d{8}$");
+        Matcher matcher = pattern.matcher(phone);
+
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
     }
+
     /**
      * 验证密码是否符合格式，验证两次密码是否输入相同
      * @param password
@@ -167,5 +184,11 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 }

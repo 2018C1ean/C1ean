@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 
 import com.example.dell.c1ean.R;
 
@@ -16,10 +17,30 @@ import com.example.dell.c1ean.R;
 
 public class UserOrdersFragment extends Fragment {
 
+    private TabHost tabHost;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_orders,container,false);
+        View view = inflater.inflate(R.layout.user_order_page,container,false);
+
+        tabHost = view.findViewById(android.R.id.tabhost);
+
+        initView();
         return view;
+    }
+
+    private void initView(){
+
+        //选项卡加载
+        tabHost.setup();
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
+        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
+        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("所有订单").setContent(R.id.line1));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("待支付").setContent(R.id.line1));
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("待评价").setContent(R.id.line1));
     }
 }

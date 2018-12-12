@@ -15,6 +15,10 @@ import com.example.dell.c1ean.Bean.User;
 import com.example.dell.c1ean.DAO.RegisterDAO;
 import com.example.dell.c1ean.DAO.UserDao;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by 李雯晴 on 2018/11/30.
@@ -33,6 +37,8 @@ public class UserRegisterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_register);
+
+        ImmersionBar.with(this).init();
 
         initView();
     }
@@ -100,11 +106,19 @@ public class UserRegisterActivity extends AppCompatActivity {
      * @return
      */
     private boolean validateTel(String phone){
-        if(phone.isEmpty()){
-            showError(telt,"手机号不能为空");
+        if (phone.isEmpty()) {
             return false;
         }
-        return true;
+        if (phone.length() != 11) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("^1[3,5]\\d{9}||18[6,8,9]\\d{8}$");
+        Matcher matcher = pattern.matcher(phone);
+
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -137,5 +151,11 @@ public class UserRegisterActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 }

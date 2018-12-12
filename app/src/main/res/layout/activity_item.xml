@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/activity_describe"
             android:background="@color/colorClearBlack"
-            android:gravity="center_horizontal|center_vertical"
             android:padding="5dp"
             android:text="洋洋家政"
             android:textSize="13sp"

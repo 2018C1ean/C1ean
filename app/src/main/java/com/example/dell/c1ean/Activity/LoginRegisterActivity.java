@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.dell.c1ean.Activity.ADMINISTRATOR.AdministratorActivity;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * Created by 李雯晴 on 2018/11/29.
@@ -40,7 +41,12 @@ public class LoginRegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         setContentView(R.layout.login_rigister);
+
+        ImmersionBar.with(this).init();
+
         initViews();
         initAnims();
     }
@@ -188,5 +194,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 }

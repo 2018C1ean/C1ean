@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:id="@+id/title"
@@ -10,8 +11,8 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
-        android:background="@drawable/title_border"
         android:orientation="horizontal">
 
         <ImageView
@@ -26,205 +27,256 @@
             android:text="发布活动"
             android:textSize="18sp" />
     </LinearLayout>
-    <ScrollView
-        android:layout_below="@id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <android.support.v7.widget.CardView
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:id="@+id/activityImg"
-        android:layout_marginTop="@dimen/activityMarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardElevation="@dimen/cardElevation">
-        <RelativeLayout
-            android:id="@+id/activity_img"
-            android:background="@color/colorWhite"
-            android:layout_width="300dp"
-            android:layout_height="225dp">
-            <ImageView
-                android:id="@+id/addImg"
-                android:layout_centerInParent="true"
-                android:layout_width="@dimen/addImgSize"
-                android:layout_height="@dimen/addImgSize"
-                android:src="@mipmap/add_noselect"/>
-            <TextView
-                android:id="@+id/img_tip"
-                android:text="添加图片"
-                android:textSize="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/addImg"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <TextView
-        android:layout_below="@id/activityImg"
-        android:id="@+id/lx"
-        android:layout_marginLeft="@dimen/activityMarginLeft"
-        android:layout_marginTop="@dimen/activityMarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/activityTextSize"
-        android:text="活动类型："/>
-        <TextView
-            android:layout_below="@id/activityImg"
-            android:id="@+id/activity_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/colorWhite"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/lx"
-            android:background="@drawable/label_shape"
-            android:text="衣物清洁"/>
-    <TextView
-        android:layout_below="@id/lx"
-        android:layout_marginLeft="@dimen/activityMarginLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/jg"
-        android:layout_marginTop="@dimen/activityMarginTop"
-        android:textSize="@dimen/activityTextSize"
-        android:text="价格："/>
 
-        <EditText
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:id="@+id/activity_price"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/jg"
-            android:layout_alignBottom="@+id/jg"
-            android:layout_toEndOf="@+id/jg"
-            android:inputType="number"
-            android:background="@drawable/text_noput"
-            android:padding="5dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/h"
-            android:layout_toRightOf="@id/activity_price"
-            android:layout_below="@id/activity_type"
-            android:layout_marginTop="22dp"
-            android:lines="1"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activityTextSize"
-            android:layout_below="@id/jg"
-            android:lines="1"
-            android:text="开始日期："
-            android:id="@+id/ksrq"
-            android:layout_marginLeft="@dimen/activityMarginLeft"
-            android:layout_marginTop="@dimen/activityMarginTop"
-            />
-        <TextView
-            android:id="@+id/start_time"
-            android:layout_width="130dp"
-            android:background="@drawable/text_noput"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/activity_price"
-            android:layout_toRightOf="@id/ksrq"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activityTextSize"
-            android:text="结束日期："
-            android:id="@+id/jsrq"
-            android:layout_below="@id/ksrq"
-            android:layout_marginLeft="@dimen/activityMarginLeft"
-            android:layout_marginTop="@dimen/activityMarginTop" />
-        <TextView
-            android:id="@+id/end_time"
-            android:layout_width="130dp"
-            android:lines="1"
-            android:background="@drawable/text_noput"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/start_time"
-            android:layout_toRightOf="@id/jsrq"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activityTextSize"
-            android:text="用户可使用次数："
-            android:id="@+id/cs"
-            android:layout_below="@id/jsrq"
-            android:layout_marginTop="@dimen/activityMarginTop"
-            android:layout_marginLeft="@dimen/activityMarginLeft"/>
-        <RadioGroup
-            android:id="@+id/user_times"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/end_time"
-            android:layout_toRightOf="@id/cs"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/activityMarginTop">
-            <RadioButton
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/activityImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="单次"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"/>
-            <RadioButton
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                app:cardElevation="@dimen/cardElevation">
+
+                <RelativeLayout
+                    android:id="@+id/activity_img"
+                    android:layout_width="340dp"
+                    android:layout_height="230dp"
+                    android:background="@color/colorWhite">
+
+                    <ImageView
+                        android:id="@+id/addImg"
+                        android:layout_width="@dimen/addImgSize"
+                        android:layout_height="@dimen/addImgSize"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/add_noselect" />
+
+                    <TextView
+                        android:id="@+id/img_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/addImg"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:text="添加图片"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不限次"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"/>
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activityTextSize"
-            android:layout_below="@+id/cs"
-            android:layout_marginLeft="@dimen/activityMarginLeft"
-            android:layout_marginTop="@dimen/activityMarginTop"
-            android:text="活动描述："
-            android:id="@+id/ms"/>
-        <EditText
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:padding="5dp"
-            android:id="@+id/activity_describe"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:enabled="true"
-            android:layout_below="@id/ms"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="@dimen/activityMarginLeft"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:maxLines="10"
-            android:minLines="8"
-            android:scrollbars="vertical"
-            android:textSize="@dimen/activityTextSize"
-            android:background="@drawable/text_noput"/>
-        <Button
-            android:focusable="false"
-            android:id="@+id/post"
-            android:textSize="@dimen/activityTextSize"
-            android:textColor="@color/colorWhite"
-            android:layout_marginTop="50dp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@drawable/circle_button"
-            android:layout_below="@id/activity_describe"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="50dp"
-            android:text="发布" />
-</RelativeLayout>
+                android:layout_below="@id/activityImg"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动类型："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <TextView
+                    android:id="@+id/activity_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/label_shape"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:padding="10dp"
+                    android:text="专业保洁"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/jg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价格："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <EditText
+                    android:id="@+id/activity_price"
+                    android:layout_width="100dp"
+                    android:layout_height="@dimen/activityMarginTop"
+                    android:background="@drawable/text_noput"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/label_shape"
+                    android:lines="1"
+                    android:text="/h"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ksrq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="开始日期："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <TextView
+                    android:id="@+id/start_time"
+                    android:layout_width="130dp"
+                    android:layout_height="@dimen/activityMarginTop"
+                    android:background="@drawable/text_noput"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line4"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/activityMarginTop"
+                android:layout_below="@id/line3"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/jsrq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结束日期："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <TextView
+                    android:id="@+id/end_time"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_noput"
+                    android:lines="1"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line4"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户可使用次数："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <RadioGroup
+                    android:id="@+id/user_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:checked="true"
+                        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单次" />
+
+                    <RadioButton
+                        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不限次" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line5"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动描述："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <EditText
+                    android:id="@+id/activity_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activityMarginLeft"
+                    android:background="@drawable/text_noput"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:maxLines="10"
+                    android:minLines="8"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
+                    android:textSize="@dimen/activityTextSize" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/post"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line6"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/circle_button"
+                android:focusable="false"
+                android:padding="10dp"
+                android:text="发布"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/activityTextSize" />
+        </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

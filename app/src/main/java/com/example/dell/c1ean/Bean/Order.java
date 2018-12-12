@@ -46,14 +46,14 @@ public class Order {
     @NotNull
     private String payTime; //用户付款时间
     @NotNull
-    private int state;  //订单状态
+    private int state;  //订单状态：0为用户未支付；1为用户已支付；2为商家已接单；3为已结束服务；
     private String userEvaluation;  //用户评价
     private String workerEvaluation;    //阿姨回复
     private int star;   //用户评价星级
     private Long activity_id;
-
     @NotNull
     private int isActivity; //是否是商家发布的活动
+
     @Generated(hash = 1041702162)
     private transient Long worker__resolvedKey;
     @Generated(hash = 251390918)

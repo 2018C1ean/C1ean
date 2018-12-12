@@ -21,9 +21,9 @@ public class User {
     private String password;    //用户密码
     @NotNull
     private String tel; //用户电话
-    private String location1;
-    private String location2;
-    private String location3;
+    private String location1;   //地址1
+    private String location2;   //地址2
+    private String location3;   //地址3
 
     public User() {
     }

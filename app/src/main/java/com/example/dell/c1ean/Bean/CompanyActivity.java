@@ -128,6 +128,6 @@ public class CompanyActivity {
     @Override
     public String toString() {
         return getId()+"\n"+getImg()+"\n"+getTitle()+"\n"+getType()+"\n"+getStart_time()+"\n"+getStart_time()+"\n"
-                +getPrice()+"\n"+getUses()+"\n"+getCompany_id();
+                +getPrice()+"\n"+getUses()+"\n"+getCompany_id()+"\n";
     }
 }

@@ -14,4 +14,11 @@
     <dimen name="activityCardHeight">220dp</dimen>
     <dimen name="textSmall">12sp</dimen>
     <dimen name="marginBottom">20dp</dimen>
+    <dimen name="typeImgSize">30dp</dimen>
+    <dimen name="typeSize">50dp</dimen>
+    <dimen name="typeTextSize">11sp</dimen>
+    <dimen name="typeMarginTop">2dp</dimen>
+    <dimen name="orderImgSize">100dp</dimen>
+    <dimen name="orderMarginTop">15dp</dimen>
+    <dimen name="orderTextSize">13sp</dimen>
 </resources>

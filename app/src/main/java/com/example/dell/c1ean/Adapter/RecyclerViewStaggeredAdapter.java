@@ -56,12 +56,14 @@ public class RecyclerViewStaggeredAdapter extends RecyclerView.Adapter<RecyclerV
 
     }
 
+
     @Override
     public int getItemCount() {
         if(companyActivityList != null&companyActivityList.size() > 0){
             return companyActivityList.size();
         }else return 0;
     }
+
 
     public class StaggerHolder extends RecyclerView.ViewHolder {
 

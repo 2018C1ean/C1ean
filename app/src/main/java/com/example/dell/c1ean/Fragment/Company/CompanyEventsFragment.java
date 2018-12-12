@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,18 +34,21 @@ import com.example.dell.c1ean.DAO.CompanyActivityDao;
 import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.OrderDao;
 import com.example.dell.c1ean.R;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+
 //import static com.example.dell.c1ean.Activity.Company.CompanyMainPageActivity.USER_ID;
 
 /**
- * Created by DELL on 2018/12/5.
+ * Created by 李雯晴 on 2018/12/5.
  */
 
-public class CompanyEventsFragment extends Fragment{
+public class CompanyEventsFragment extends Fragment {
 
     private TextView valuable;
     private FloatingActionButton fab;   //浮动添加活动按钮
@@ -55,32 +59,37 @@ public class CompanyEventsFragment extends Fragment{
     private OrderDao orderDao;
     private Long user_id;
     private RecyclerViewStaggeredAdapter recyclerViewStaggeredAdapter;
-    TextView textView;
+    private TextView title;
+    private ScrollView scrollView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.company_events,container,false);   //设置布局
+        View view = inflater.inflate(R.layout.company_events, container, false);   //设置布局
 
         valuable = view.findViewById(R.id.valuable);
         fab = view.findViewById(R.id.addActivity);
         recyclerView = view.findViewById(R.id.recyclerView);
+        title = view.findViewById(R.id.title_bar);
+        scrollView = view.findViewById(R.id.scrollView);
 
-        companyActivityDao = ((BaseApplication)getActivity().getApplication()).getCompanyActivityDao();
-        companyDao = ((BaseApplication)getActivity().getApplication()).getCompanyDao();
-        orderDao = ((BaseApplication)getActivity().getApplication()).getOrderDao();
+        companyActivityDao = ((BaseApplication) getActivity().getApplication()).getCompanyActivityDao();
+        companyDao = ((BaseApplication) getActivity().getApplication()).getCompanyDao();
+        orderDao = ((BaseApplication) getActivity().getApplication()).getOrderDao();
         user_id = ((BaseApplication) getActivity().getApplication()).getUSER_ID();
 
         initView();
+        setTitle();
 
         return view;
     }
 
-    private void initView(){
+    private void initView() {
 
         //给浮动按钮添加动画
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        ObjectAnimator go = ObjectAnimator.ofFloat(fab,"translationY",0,fab.getHeight()+layoutParams.bottomMargin);
+        ObjectAnimator go = ObjectAnimator.ofFloat(fab, "translationY", 0, fab.getHeight() + layoutParams.bottomMargin);
         go.setDuration(500);
         go.setInterpolator(new AccelerateInterpolator());
         go.start();
@@ -105,25 +114,43 @@ public class CompanyEventsFragment extends Fragment{
         });
 
         companyActivityList = companyActivityDao.queryBuilder().where(CompanyActivityDao.Properties.Company_id.eq(user_id)).list(); //获取id为user_id的companyActivity队列
-        if (companyActivityList.size() < 1){
+        if (companyActivityList.size() < 1) {
             valuable.setVisibility(View.VISIBLE);
+        }else {
+            recyclerViewStaggeredAdapter = new RecyclerViewStaggeredAdapter(getContext(), companyActivityList, companyDao, orderDao);
+            recyclerView.setAdapter(recyclerViewStaggeredAdapter);
+            //布局管理器
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            staggeredGridLayoutManager.setReverseLayout(false);
+            //设置布局管理器 参数GridManager 可以使RecyclerView实现和GridView一样的效果
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
         }
-        recyclerViewStaggeredAdapter = new RecyclerViewStaggeredAdapter(getContext(),companyActivityList,companyDao,orderDao);
-        recyclerView.setAdapter(recyclerViewStaggeredAdapter);
-        //布局管理器
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setReverseLayout(false);
-        //设置布局管理器 参数GridManager 可以使RecyclerView实现和GridView一样的效果
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
     }
-//    class GameThread implements Runnable {
-//        public void run() {
-//            while (!Thread.currentThread().isInterrupted()) {
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                } //使用postInvalidate可以直接在线程中更新界面
-//                 recyclerView.postInvalidate(); }
-//        } }
+
+    private void setTitle() {
+
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < 800) {
+                    float alpha = 1 - ((float) scrollX) / 800;
+                    title.setAlpha(alpha);
+                    if (alpha == 0) {
+                        title.setClickable(false);
+                    } else {
+                        title.setClickable(true);
+                    }
+                } else {
+                    //下滑显示标题栏
+                    if (oldScrollY > scrollY) {
+                        title.setAlpha(1);
+                        title.setClickable(true);
+                    } else {
+                        title.setAlpha(0);
+                        title.setClickable(false);
+                    }
+                }
+            }
+        });
+    }
 }

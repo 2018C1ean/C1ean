@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.dell.c1ean.Activity.User.UserMainPageActivity;
 import com.example.dell.c1ean.Fragment.PersonalPageFragment;
 import com.example.dell.c1ean.Fragment.Worker.WorkerHomePageFragment;
 import com.example.dell.c1ean.Fragment.Worker.WorkerOrdersFragment;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 import com.ycl.tabview.library.TabView;
 import com.ycl.tabview.library.TabViewChild;
 
@@ -25,25 +30,27 @@ import java.util.List;
 
 public class WorkerMainPageActivity extends AppCompatActivity{
 
+    private long exitTime;
     public static String user_id = "USER_ID";
     private TabView tabView;
     private WorkerHomePageFragment workerHomePageFragment;
     private WorkerOrdersFragment workerOrdersFragment;
     private PersonalPageFragment personalPageFragment;
     private Long USERID;
-    private LocalBroadcastManager localBroadcastManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         //给app内所有界面发送用户id的广播
         USERID = getIntent().getLongExtra("user_id",0);
         Intent intent = new Intent(user_id);
         intent.putExtra("user_id",USERID);
-        localBroadcastManager.sendBroadcast(intent);
 
-        setContentView(R.layout.worker_mainpage);
-
+        ImmersionBar.with(this).init();
+        setContentView(R.layout.mainpage);
         initView();
     }
 
@@ -78,5 +85,27 @@ public class WorkerMainPageActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
+
+    /**
+     * 重写返回键，实现双击退出效果
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(WorkerMainPageActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                WorkerMainPageActivity.this.finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 

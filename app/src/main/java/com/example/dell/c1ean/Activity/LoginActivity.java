@@ -18,6 +18,7 @@ import com.example.dell.c1ean.Activity.Worker.WorkerMainPageActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.DAO.LoginDAO;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * Created by 李雯晴 on 2018/11/21.
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity{
         localBroadcastManager = LocalBroadcastManager.getInstance(this);    //注册广播器
         setContentView(R.layout.login);
 
+        ImmersionBar.with(this).init();
+
         initView();
     }
 
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity{
         back = findViewById(R.id.back);
         loginDAO = new LoginDAO((BaseApplication) getApplication());    //创建loginDAO
 
+        spinner.setSelection(0);    //设置默认选项
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,4 +152,9 @@ public class LoginActivity extends AppCompatActivity{
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
 }

@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -35,10 +36,12 @@ import android.widget.Toast;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
+import com.example.dell.c1ean.Activity.LoginRegisterActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.Bean.CompanyActivity;
 import com.example.dell.c1ean.DAO.CompanyActivityDao;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -54,8 +57,8 @@ import java.util.Date;
 public class AddActivityActivity extends AppCompatActivity {
 
     private RelativeLayout activity_img;
-    private ImageView addImg,back;
-    private TextView activity_type,price,star_time,end_time,img_tip;
+    private ImageView addImg, back;
+    private TextView activity_type, price, star_time, end_time, img_tip;
     private RadioGroup user_times;
     private EditText describe;
     private Button post;
@@ -70,7 +73,7 @@ public class AddActivityActivity extends AppCompatActivity {
     private Long company_id;
     private CompanyActivityDao companyActivityDao;
     private String img_file_name;
-    private String[] typeArray = {"衣物清洁","家具清洁","厕所保洁"};
+    private String[] typeArray = {"专业保洁", "家电清洗", "家居养护", "洗护服务"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +81,13 @@ public class AddActivityActivity extends AppCompatActivity {
 
         setContentView(R.layout.company_post_events);
 
-        company_id = ((BaseApplication)getApplication()).getUSER_ID();  //获取当前的用户id
+        ImmersionBar.with(this).init();
+        company_id = ((BaseApplication) getApplication()).getUSER_ID();  //获取当前的用户id
 
         initView();
     }
 
-    private void initView(){
+    private void initView() {
 
         back = findViewById(R.id.back);
         activity_img = findViewById(R.id.activity_img);
@@ -214,22 +218,22 @@ public class AddActivityActivity extends AppCompatActivity {
                 String activity_price = price.getText().toString();
                 String start = star_time.getText().toString();
                 String end = end_time.getText().toString();
-                String times = ((RadioButton)findViewById(user_times.getCheckedRadioButtonId())).getText().toString();
+                String times = ((RadioButton) findViewById(user_times.getCheckedRadioButtonId())).getText().toString();
                 String activity_describe = describe.getText().toString();
 
-                if(img_file_name.isEmpty()){
+                if (img_file_name.isEmpty()) {
                     showText("活动的照片不能为空！");
-                }else {
-                    if (type.isEmpty()){
+                } else {
+                    if (type.isEmpty()) {
                         showText("活动的类型不能为空！");
-                    }else {
-                        if (!parseToFloat(activity_price)){
+                    } else {
+                        if (!parseToFloat(activity_price)) {
                             showText("价格的格式错误！");
-                        }else {
+                        } else {
                             Float price = Float.parseFloat(activity_price); //价格
-                            if (activity_describe.isEmpty()){
+                            if (activity_describe.isEmpty()) {
                                 showText("活动描述不能为空！");
-                            }else {
+                            } else {
                                 //创建一个companyActivity实体
                                 CompanyActivity companyActivity = new CompanyActivity(null, activity_describe, type, img_file_name, start, end, price, company_id, times);
                                 //实例化dao
@@ -237,7 +241,7 @@ public class AddActivityActivity extends AppCompatActivity {
                                 //向数据库插入实体
                                 companyActivityDao.insert(companyActivity);
                                 //操作成功后跳转主页面
-                                Intent intent = new Intent(AddActivityActivity.this,CompanyMainPageActivity.class);
+                                Intent intent = new Intent(AddActivityActivity.this, CompanyMainPageActivity.class);
                                 startActivity(intent);
                             }
                         }
@@ -249,10 +253,10 @@ public class AddActivityActivity extends AppCompatActivity {
 
     }
 
-    private void setDialog(){
+    private void setDialog() {
 
-        final Dialog dialog = new Dialog(this,R.style.BottomDialog);  //设置对话框的style为下弹下单（自定义的）
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.add_image_dialog,null); //加载对话框布局
+        final Dialog dialog = new Dialog(this, R.style.BottomDialog);  //设置对话框的style为下弹下单（自定义的）
+        LinearLayout layout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.add_image_dialog, null); //加载对话框布局
         dialog.setContentView(layout);  //设置布局
 
         //跳转相机拍照
@@ -273,7 +277,7 @@ public class AddActivityActivity extends AppCompatActivity {
                     //获取当前系统时间
                     String filename = timeStampFormat.format(new Date());
                     //设置照片的文件名为 时间.jpg
-                    tempFile = new File(Environment.getExternalStorageDirectory()+File.separator+"DCIM",filename + ".jpg");
+                    tempFile = new File(Environment.getExternalStorageDirectory() + File.separator + "DCIM", filename + ".jpg");
 
                     if (current_api_version < 24) {   // 如果系统的sdk从文件中创建uri
 
@@ -281,7 +285,7 @@ public class AddActivityActivity extends AppCompatActivity {
 
                         //指定输出地址
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, camera_img_uri);
-                        Toast.makeText(AddActivityActivity.this,"保存在"+ camera_img_uri,Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddActivityActivity.this, "保存在" + camera_img_uri, Toast.LENGTH_LONG).show();
                     } else {
 
                         //Android 7.0之后调用相机的方式不允许以file://的方式调用，需要以共享文件的方式
@@ -295,7 +299,7 @@ public class AddActivityActivity extends AppCompatActivity {
                         if (ContextCompat.checkSelfPermission(AddActivityActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
 
-                            Toast.makeText(AddActivityActivity.this,"请开启存储权限",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddActivityActivity.this, "请开启存储权限", Toast.LENGTH_SHORT).show();
                             return; //如果没有开启存储权限，退出此方法
 
                         }
@@ -310,8 +314,8 @@ public class AddActivityActivity extends AppCompatActivity {
                     // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
                     startActivityForResult(intent, PHOTO_REQUEST_CAMERA);
 
-                }else{
-                    Toast.makeText(AddActivityActivity.this,"存储卡不可用",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(AddActivityActivity.this, "存储卡不可用", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -369,7 +373,7 @@ public class AddActivityActivity extends AppCompatActivity {
                 }
                 break;
             case IMAGE_REQUEST_CODE:    //从相册选取照片
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Intent intent = new Intent("com.android.camera.action.CROP");
                     intent.setDataAndType(data.getData(), "image/*"); //设置路径和文件类型为图片
                     intent.putExtra("crop", true);
@@ -398,7 +402,7 @@ public class AddActivityActivity extends AppCompatActivity {
                 }
                 break;
             case ALBUM_CROP_PHOTO:  //从照片剪裁出来的
-                if (resultCode == RESULT_OK && data != null){
+                if (resultCode == RESULT_OK && data != null) {
                     Bitmap bitmap = data.getParcelableExtra("data");
                     img_file_name = savePicture(bitmap);
                     BitmapDrawable drawable = new BitmapDrawable(bitmap);
@@ -419,22 +423,22 @@ public class AddActivityActivity extends AppCompatActivity {
                 Environment.MEDIA_MOUNTED);
     }
 
-    private String savePicture(Bitmap bitmap){
+    private String savePicture(Bitmap bitmap) {
         //设置时间格式
         SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         //获取当前系统时间
         String filename = timeStampFormat.format(new Date());
-        String fileName= Environment.getExternalStorageDirectory().toString()
-                +File.separator
-                +"DCIM"
-                +File.separator
-                +filename+".jpg";
-        File file=new File(fileName);
-        if(!file.getParentFile().exists()){
+        String fileName = Environment.getExternalStorageDirectory().toString()
+                + File.separator
+                + "DCIM"
+                + File.separator
+                + filename + ".jpg";
+        File file = new File(fileName);
+        if (!file.getParentFile().exists()) {
             file.getParentFile().mkdir();//创建文件夹
         }
         try {
-            BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(file));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);//向缓冲区压缩图片
             bos.flush();
             bos.close();
@@ -445,16 +449,23 @@ public class AddActivityActivity extends AppCompatActivity {
     }
 
     //提示
-    private void showText(String text){
-        Toast.makeText(AddActivityActivity.this,text,Toast.LENGTH_LONG).show();
+    private void showText(String text) {
+        Toast.makeText(AddActivityActivity.this, text, Toast.LENGTH_LONG).show();
     }
 
-    private boolean parseToFloat(String string){
-        try{
+    private boolean parseToFloat(String string) {
+        try {
             float n = Float.parseFloat(string);
             return true;
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
+
 }
