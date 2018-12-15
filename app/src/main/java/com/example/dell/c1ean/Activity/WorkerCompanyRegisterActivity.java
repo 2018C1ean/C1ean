@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
 
         ImmersionBar.with(this).init();
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         type = getIntent().getStringExtra("type");  //获取注册的用户类型
 
         initView();
@@ -88,8 +91,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
 
                                 registerDAO.setPassword(type,phone,pwd);    //设置密码
                                 Toast.makeText(WorkerCompanyRegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
-                                startActivity(intent);
+                                Intent intent1 = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
+                                startActivity(intent1);
                                 finish();
                             }
                         }else {
@@ -103,8 +106,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity{
                             }else {
                                 registerDAO.setPassword(type,phone,pwd);    //设置密码
                                 Toast.makeText(WorkerCompanyRegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
-                                startActivity(intent);
+                                Intent intent2 = new Intent(WorkerCompanyRegisterActivity.this,LoginActivity.class);
+                                startActivity(intent2);
                                 finish();
                             }
                         }else {

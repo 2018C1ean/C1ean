@@ -30,6 +30,7 @@
             <EditText
                 android:hint="公司代码"
                 android:layout_width="300dp"
+                android:lines="1"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -38,6 +39,7 @@
             android:id="@+id/name">
             <EditText
                 android:hint="公司名"
+                android:lines="1"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
@@ -47,6 +49,7 @@
             android:id="@+id/phone">
             <EditText
                 android:hint="联系电话"
+                android:lines="1"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
@@ -56,6 +59,7 @@
             android:id="@+id/location">
             <EditText
                 android:hint="地址"
+                android:lines="1"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>

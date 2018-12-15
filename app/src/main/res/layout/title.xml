@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/colorTheme"
     android:gravity="center_vertical|center_horizontal">
+
     <TextView
         android:id="@+id/title_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:typeface="serif"
-        android:textColor="@color/colorTheme"/>
+        android:textColor="@color/colorWhite"/>
 </LinearLayout>

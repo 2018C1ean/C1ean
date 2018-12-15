@@ -18,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -36,7 +35,6 @@ import android.widget.Toast;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
-import com.example.dell.c1ean.Activity.LoginRegisterActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.Bean.CompanyActivity;
 import com.example.dell.c1ean.DAO.CompanyActivityDao;
@@ -56,31 +54,43 @@ import java.util.Date;
 
 public class AddActivityActivity extends AppCompatActivity {
 
-    private RelativeLayout activity_img;
-    private ImageView addImg, back;
-    private TextView activity_type, price, star_time, end_time, img_tip;
+    private ImageView img1, img2, img3;
+    private ImageView back;
+    private TextView activity_type, price, star_time, end_time;
     private RadioGroup user_times;
-    private EditText describe;
+    private EditText describe, title;
     private Button post;
-    public static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
-    public static final int IMAGE_REQUEST_CODE = 2; //从系统相册选择照片
-    public static final int CAMERA_CROP_PHOTO = 3; //拍完照剪裁照片
-    public static final int ALBUM_CROP_PHOTO = 4;   //选取照片后剪裁
+    public static final int PHOTO_REQUEST_CAMERA = 11;// 拍照
+    public static final int IMAGE_REQUEST_CODE = 21;
+    public static final int CAMERA_CROP_PHOTO = 31;
+    public static final int ALBUM_CROP_PHOTO = 41;
+    public static final int PHOTO_REQUEST_CAMERA_2 = 12;// 拍照
+    public static final int IMAGE_REQUEST_CODE_2 = 22;
+    public static final int CAMERA_CROP_PHOTO_2 = 32;
+    public static final int ALBUM_CROP_PHOTO_2 = 42;
+    public static final int PHOTO_REQUEST_CAMERA_3 = 13;// 拍照
+    public static final int IMAGE_REQUEST_CODE_3 = 23;
+    public static final int CAMERA_CROP_PHOTO_3 = 33;
+    public static final int ALBUM_CROP_PHOTO_3 = 43;
     private Uri camera_img_uri; //拍完照照片的uri
     private File tempFile;  //使用相机拍照后保存的地址
     public Uri album_img_uri;   //相册中选取照片的uri
     private static int current_api_version;   //手机的api版本
     private Long company_id;
     private CompanyActivityDao companyActivityDao;
-    private String img_file_name;
+    private String img_file1, img_file2, img_file3;
     private String[] typeArray = {"专业保洁", "家电清洗", "家居养护", "洗护服务"};
+    private int n1 = 0;
+    private int n2 = 0;
+    private int n3 = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.company_post_events);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         ImmersionBar.with(this).init();
         company_id = ((BaseApplication) getApplication()).getUSER_ID();  //获取当前的用户id
 
@@ -89,10 +99,11 @@ public class AddActivityActivity extends AppCompatActivity {
 
     private void initView() {
 
+        title = findViewById(R.id.activity_title);
         back = findViewById(R.id.back);
-        activity_img = findViewById(R.id.activity_img);
-        addImg = findViewById(R.id.addImg);
-        img_tip = findViewById(R.id.img_tip);
+        img1 = findViewById(R.id.img1);
+        img2 = findViewById(R.id.img2);
+        img3 = findViewById(R.id.img3);
         activity_type = findViewById(R.id.activity_type);
         price = findViewById(R.id.activity_price);
         star_time = findViewById(R.id.start_time);
@@ -100,7 +111,6 @@ public class AddActivityActivity extends AppCompatActivity {
         user_times = findViewById(R.id.user_times);
         describe = findViewById(R.id.activity_describe);
         post = findViewById(R.id.post);
-
 
         activity_type.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,22 +204,26 @@ public class AddActivityActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //给添加图片的图片添加点击事件，弹出下弹菜单
-        addImg.setOnClickListener(new View.OnClickListener() {
+
+        //点击进行图片设置或更换照片
+        img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setDialog();
+                setDialog(1);
             }
         });
-
-        //点击背景或者当前的图片设置或更换照片
-        activity_img.setOnClickListener(new View.OnClickListener() {
+        img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setDialog();
+                setDialog(2);
             }
         });
-
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDialog(3);
+            }
+        });
         //发布活动
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,31 +232,40 @@ public class AddActivityActivity extends AppCompatActivity {
                 String activity_price = price.getText().toString();
                 String start = star_time.getText().toString();
                 String end = end_time.getText().toString();
-                String times = ((RadioButton) findViewById(user_times.getCheckedRadioButtonId())).getText().toString();
                 String activity_describe = describe.getText().toString();
+                String activity_title = title.getText().toString();
 
-                if (img_file_name.isEmpty()) {
+                if (img_file1 == null) {
                     showText("活动的照片不能为空！");
                 } else {
                     if (type.isEmpty()) {
                         showText("活动的类型不能为空！");
                     } else {
-                        if (!parseToFloat(activity_price)) {
-                            showText("价格的格式错误！");
+                        if (activity_title.isEmpty()) {
+                            showText("活动标题不能为空！");
                         } else {
-                            Float price = Float.parseFloat(activity_price); //价格
-                            if (activity_describe.isEmpty()) {
-                                showText("活动描述不能为空！");
+                            if (!parseToFloat(activity_price)) {
+                                showText("价格的格式错误！");
                             } else {
-                                //创建一个companyActivity实体
-                                CompanyActivity companyActivity = new CompanyActivity(null, activity_describe, type, img_file_name, start, end, price, company_id, times);
-                                //实例化dao
-                                companyActivityDao = ((BaseApplication) getApplication()).getCompanyActivityDao();
-                                //向数据库插入实体
-                                companyActivityDao.insert(companyActivity);
-                                //操作成功后跳转主页面
-                                Intent intent = new Intent(AddActivityActivity.this, CompanyMainPageActivity.class);
-                                startActivity(intent);
+                                if (isGetRadioBtn(user_times.getCheckedRadioButtonId())) {
+                                    String times = ((RadioButton) findViewById(user_times.getCheckedRadioButtonId())).getText().toString();
+                                    Float price = Float.parseFloat(activity_price); //价格
+                                    if (activity_describe.isEmpty()) {
+                                        showText("活动描述不能为空！");
+                                    } else {
+                                        //创建一个companyActivity实体
+                                        CompanyActivity companyActivity = new CompanyActivity(null, activity_title, type, img_file1, img_file2, img_file3, start, end, price, company_id, times, activity_describe);
+                                        //实例化dao
+                                        companyActivityDao = ((BaseApplication) getApplication()).getCompanyActivityDao();
+                                        //向数据库插入实体
+                                        companyActivityDao.insert(companyActivity);
+                                        //操作成功后跳转主页面
+                                        Intent intent = new Intent(AddActivityActivity.this, CompanyMainPageActivity.class);
+                                        startActivity(intent);
+                                    }
+                                } else {
+                                    showText("请选择用户次数！");
+                                }
                             }
                         }
                     }
@@ -253,7 +276,7 @@ public class AddActivityActivity extends AppCompatActivity {
 
     }
 
-    private void setDialog() {
+    private void setDialog(final int i) {
 
         final Dialog dialog = new Dialog(this, R.style.BottomDialog);  //设置对话框的style为下弹下单（自定义的）
         LinearLayout layout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.add_image_dialog, null); //加载对话框布局
@@ -311,9 +334,13 @@ public class AddActivityActivity extends AppCompatActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, camera_img_uri);
                     }
 
-                    // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
-                    startActivityForResult(intent, PHOTO_REQUEST_CAMERA);
-
+                    if (i == 1) {
+                        startActivityForResult(intent, PHOTO_REQUEST_CAMERA);
+                    } else if (i == 2) {
+                        startActivityForResult(intent, PHOTO_REQUEST_CAMERA_2);
+                    } else {
+                        startActivityForResult(intent, PHOTO_REQUEST_CAMERA_3);
+                    }
                 } else {
                     Toast.makeText(AddActivityActivity.this, "存储卡不可用", Toast.LENGTH_LONG).show();
                 }
@@ -328,8 +355,16 @@ public class AddActivityActivity extends AppCompatActivity {
                 Intent intent = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                // 打开手机相册,设置请求码
-                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                if (i == 1) {
+
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                } else if (i == 2) {
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE_2);
+
+                } else {
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE_3);
+
+                }
             }
         });
 
@@ -346,7 +381,7 @@ public class AddActivityActivity extends AppCompatActivity {
         WindowManager.LayoutParams lp = window.getAttributes(); // 获取对话框当前的参数值
         lp.x = 0; // 新位置X坐标
         lp.y = 0; // 新位置Y坐标
-        lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
+        lp.width = getResources().getDisplayMetrics().widthPixels; // 宽度
         layout.measure(0, 0);
         lp.height = layout.getMeasuredHeight();
 
@@ -362,54 +397,103 @@ public class AddActivityActivity extends AppCompatActivity {
             case PHOTO_REQUEST_CAMERA:  //拍照
 
                 if (resultCode == RESULT_OK) {  //如果拍好了照
-                    Intent intent = new Intent("com.android.camera.action.CROP");
-                    intent.setDataAndType(camera_img_uri, "image/*"); //设置路径和文件类型为图片
-                    intent.putExtra("crop", true);
-                    // aspectX aspectY 是宽高的比例
-                    intent.putExtra("aspectX", 4);
-                    intent.putExtra("aspectY", 3);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, camera_img_uri);
+                    Intent intent = getCameraIntent();
                     startActivityForResult(intent, CAMERA_CROP_PHOTO); // 启动裁剪程序
                 }
                 break;
-            case IMAGE_REQUEST_CODE:    //从相册选取照片
-                if (resultCode == RESULT_OK) {
-                    Intent intent = new Intent("com.android.camera.action.CROP");
-                    intent.setDataAndType(data.getData(), "image/*"); //设置路径和文件类型为图片
-                    intent.putExtra("crop", true);
-                    // aspectX aspectY 是宽高的比例
-                    intent.putExtra("aspectX", 4);
-                    intent.putExtra("aspectY", 3);
-                    intent.putExtra("return-data", true);
-                    album_img_uri = data.getData();
-                    startActivityForResult(intent, ALBUM_CROP_PHOTO); // 启动裁剪程序
+            case PHOTO_REQUEST_CAMERA_2:
+                if (resultCode == RESULT_OK) {  //如果拍好了照
+                    Intent intent = getCameraIntent();
+                    startActivityForResult(intent, CAMERA_CROP_PHOTO_2); // 启动裁剪程序
+                }
+                break;
+            case PHOTO_REQUEST_CAMERA_3:
+                if (resultCode == RESULT_OK) {  //如果拍好了照
+                    Intent intent = getCameraIntent();
+                    startActivityForResult(intent, CAMERA_CROP_PHOTO_3); // 启动裁剪程序
                 }
                 break;
             case CAMERA_CROP_PHOTO: //拍完照后的剪裁
                 if (resultCode == RESULT_OK) {
-
                     try {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(camera_img_uri));
-                        BitmapDrawable drawable = new BitmapDrawable(bitmap);
-                        img_file_name = savePicture(bitmap);
-                        //隐藏添加图片框的控件
-                        addImg.setVisibility(View.INVISIBLE);
-                        img_tip.setVisibility(View.INVISIBLE);
-                        activity_img.setBackground(drawable);
+                        img_file1 = savePicture(bitmap);
+                        img1.setImageBitmap(bitmap);
+                        img2.setVisibility(View.VISIBLE);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
                 break;
+            case CAMERA_CROP_PHOTO_2:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(camera_img_uri));
+                        img_file2 = savePicture(bitmap);
+                        img2.setImageBitmap(bitmap);
+                        img3.setVisibility(View.VISIBLE);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case CAMERA_CROP_PHOTO_3:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(camera_img_uri));
+                        img_file3 = savePicture(bitmap);
+                        img3.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case IMAGE_REQUEST_CODE:    //从相册选取照片
+                if (resultCode == RESULT_OK) {
+                    Intent intent = getImageIntent();
+                    intent.setDataAndType(data.getData(), "image/*"); //设置路径和文件类型为图片
+                    album_img_uri = data.getData();
+                    startActivityForResult(intent, ALBUM_CROP_PHOTO); // 启动裁剪程序
+                }
+                break;
+
+            case IMAGE_REQUEST_CODE_2:
+                if (resultCode == RESULT_OK) {
+                    Intent intent = getImageIntent();
+                    intent.setDataAndType(data.getData(), "image/*"); //设置路径和文件类型为图片
+                    album_img_uri = data.getData();
+                    startActivityForResult(intent, ALBUM_CROP_PHOTO_2); // 启动裁剪程序
+                }
+                break;
+            case IMAGE_REQUEST_CODE_3:
+                if (resultCode == RESULT_OK) {
+                    Intent intent = getImageIntent();
+                    intent.setDataAndType(data.getData(), "image/*"); //设置路径和文件类型为图片
+                    album_img_uri = data.getData();
+                    startActivityForResult(intent, ALBUM_CROP_PHOTO_3); // 启动裁剪程序
+                }
+                break;
             case ALBUM_CROP_PHOTO:  //从照片剪裁出来的
                 if (resultCode == RESULT_OK && data != null) {
                     Bitmap bitmap = data.getParcelableExtra("data");
-                    img_file_name = savePicture(bitmap);
-                    BitmapDrawable drawable = new BitmapDrawable(bitmap);
-                    //隐藏添加图片框的控件
-                    addImg.setVisibility(View.INVISIBLE);
-                    img_tip.setVisibility(View.INVISIBLE);
-                    activity_img.setBackground(drawable);
+                    img_file1 = savePicture(bitmap);
+                    img1.setImageBitmap(bitmap);
+                    img2.setVisibility(View.VISIBLE);
+                }
+                break;
+            case ALBUM_CROP_PHOTO_2:
+                if (resultCode == RESULT_OK && data != null) {
+                    Bitmap bitmap = data.getParcelableExtra("data");
+                    img_file2 = savePicture(bitmap);
+                    img2.setImageBitmap(bitmap);
+                    img3.setVisibility(View.VISIBLE);
+                }
+                break;
+            case ALBUM_CROP_PHOTO_3:
+                if (resultCode == RESULT_OK && data != null) {
+                    Bitmap bitmap = data.getParcelableExtra("data");
+                    img_file3 = savePicture(bitmap);
+                    img3.setImageBitmap(bitmap);
                 }
                 break;
         }
@@ -458,6 +542,36 @@ public class AddActivityActivity extends AppCompatActivity {
             float n = Float.parseFloat(string);
             return true;
         } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private Intent getCameraIntent() {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(camera_img_uri, "image/*"); //设置路径和文件类型为图片
+        intent.putExtra("crop", true);
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 4);
+        intent.putExtra("aspectY", 3);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, camera_img_uri);
+        return intent;
+    }
+
+    private Intent getImageIntent() {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.putExtra("crop", true);
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 4);
+        intent.putExtra("aspectY", 3);
+        intent.putExtra("return-data", true);
+        return intent;
+    }
+
+    private boolean isGetRadioBtn(int btn_id) {
+        RadioButton radioButton = findViewById(btn_id);
+        if (radioButton != null) {
+            return true;
+        } else {
             return false;
         }
     }

@@ -20,7 +20,9 @@ public class CompanyActivity {
     @NotNull
     private String type;    //活动类型
     @NotNull
-    private String img; //活动照片
+    private String img1; //活动照片1
+    private String img2; //活动照片2
+    private String img3; //活动照片3
     @NotNull
     private String start_time;  //活动开始时间
     @NotNull
@@ -31,26 +33,61 @@ public class CompanyActivity {
     private Long company_id;    //举办的公司id
     @NotNull
     private String uses;   //用户可使用次数
+    @NotNull
+    private String activity_decribes;
 
-
-    @Generated(hash = 1346299346)
-    public CompanyActivity(Long id, @NotNull String title, @NotNull String type,
-            @NotNull String img, @NotNull String start_time,
-            @NotNull String end_time, @NotNull Float price,
-            @NotNull Long company_id, @NotNull String uses) {
+    @Generated(hash = 341611985)
+    public CompanyActivity(Long id, @NotNull String title, @NotNull String type, @NotNull String img1, String img2, String img3,
+            @NotNull String start_time, @NotNull String end_time, @NotNull Float price, @NotNull Long company_id, @NotNull String uses,
+            @NotNull String activity_decribes) {
         this.id = id;
         this.title = title;
         this.type = type;
-        this.img = img;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.img3 = img3;
         this.start_time = start_time;
         this.end_time = end_time;
         this.price = price;
         this.company_id = company_id;
         this.uses = uses;
+        this.activity_decribes = activity_decribes;
     }
 
     @Generated(hash = 1389486425)
     public CompanyActivity() {
+    }
+
+    public String getImg1() {
+        return img1;
+    }
+
+    public void setImg1(String img1) {
+        this.img1 = img1;
+    }
+
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
+    }
+
+    public String getImg3() {
+        return img3;
+    }
+
+    public void setImg3(String img3) {
+        this.img3 = img3;
+    }
+
+    public String getActivity_decribes() {
+        return activity_decribes;
+    }
+
+    public void setActivity_decribes(String activity_decribes) {
+        this.activity_decribes = activity_decribes;
     }
 
     public Long getId() {
@@ -75,14 +112,6 @@ public class CompanyActivity {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getStart_time() {
@@ -127,7 +156,7 @@ public class CompanyActivity {
 
     @Override
     public String toString() {
-        return getId()+"\n"+getImg()+"\n"+getTitle()+"\n"+getType()+"\n"+getStart_time()+"\n"+getStart_time()+"\n"
+        return getId()+"\n"+getImg1()+"\n"+getImg2()+"\n"+getImg3()+"\n"+getTitle()+"\n"+getType()+"\n"+getStart_time()+"\n"+getStart_time()+"\n"
                 +getPrice()+"\n"+getUses()+"\n"+getCompany_id()+"\n";
     }
 }

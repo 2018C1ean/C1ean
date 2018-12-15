@@ -30,53 +30,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:overScrollMode="never">
+        android:layout_height="match_parent"
+        android:layout_below="@id/title">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/activityImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="20dp"
-                app:cardElevation="@dimen/cardElevation">
-
-                <RelativeLayout
-                    android:id="@+id/activity_img"
-                    android:layout_width="340dp"
-                    android:layout_height="230dp"
-                    android:background="@color/colorWhite">
-
-                    <ImageView
-                        android:id="@+id/addImg"
-                        android:layout_width="@dimen/addImgSize"
-                        android:layout_height="@dimen/addImgSize"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/add_noselect" />
-
-                    <TextView
-                        android:id="@+id/img_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/addImg"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="5dp"
-                        android:text="添加图片"
-                        android:textSize="10dp" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/activityImg"
                 android:layout_marginStart="@dimen/activityMarginLeft"
                 android:layout_marginTop="@dimen/activityMarginTop"
                 android:gravity="center_vertical"
@@ -100,10 +64,44 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/line2"
+                android:id="@+id/line0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line1"
+                android:layout_marginStart="@dimen/activityMarginLeft"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动标题："
+                    android:textSize="@dimen/activityTextSize" />
+
+                <EditText
+                    android:id="@+id/activity_title"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="@dimen/activityMarginLeft"
+                    android:background="@drawable/text_noput"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:maxLines="10"
+                    android:minLines="3"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
+                    android:textSize="@dimen/activityTextSize" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line0"
                 android:layout_marginStart="@dimen/activityMarginLeft"
                 android:layout_marginTop="@dimen/activityMarginTop"
                 android:gravity="center_vertical"
@@ -214,13 +212,15 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:checked="true"
+                        android:id="@+id/single"
                         style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="单次" />
 
                     <RadioButton
+                        android:id="@+id/nolimit"
                         style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -246,6 +246,7 @@
                     android:textSize="@dimen/activityTextSize" />
 
                 <EditText
+                    android:layout_marginTop="@dimen/marginTop"
                     android:id="@+id/activity_describe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -263,15 +264,49 @@
                     android:textSize="@dimen/activityTextSize" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/line7"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_below="@id/line6"
+                android:padding="20dp"
+                android:layout_marginTop="@dimen/activityMarginTop"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="@dimen/orderImgSize"
+                        android:layout_height="@dimen/orderImgSize"
+                        android:scaleType="centerCrop"
+                        android:background="@mipmap/activity_add" />
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_marginStart="10dp"
+                        android:visibility="gone"
+                        android:layout_width="@dimen/orderImgSize"
+                        android:layout_height="@dimen/orderImgSize"
+                        android:scaleType="centerCrop"
+                        android:background="@mipmap/activity_add" />
+                    <ImageView
+                        android:id="@+id/img3"
+                        android:visibility="gone"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="@dimen/orderImgSize"
+                        android:layout_height="@dimen/orderImgSize"
+                        android:scaleType="centerCrop"
+                        android:background="@mipmap/activity_add" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/post"
-                android:layout_width="200dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/line6"
+                android:layout_below="@id/line7"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/circle_button"
+                android:background="@drawable/label_shape"
                 android:focusable="false"
                 android:padding="10dp"
                 android:text="发布"

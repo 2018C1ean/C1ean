@@ -88,7 +88,7 @@ public class RecyclerViewListViewAdapter extends RecyclerView.Adapter<RecyclerVi
             activity_describe.setText(companyActivityDao.queryBuilder().where(CompanyActivityDao.Properties.Id.eq(order.getActivity_id())).unique().getTitle());
             booking_time.setText(order.getBookingTime());
             order_price.setText(order.getMoney()+"");
-            Bitmap bitmap = BitmapFactory.decodeFile(companyActivityDao.queryBuilder().where(CompanyActivityDao.Properties.Id.eq(order.getActivity_id())).unique().getImg());
+            Bitmap bitmap = BitmapFactory.decodeFile(companyActivityDao.queryBuilder().where(CompanyActivityDao.Properties.Id.eq(order.getActivity_id())).unique().getImg1());
             order_img.setImageBitmap(bitmap);
 
             //订单已完成，显示“删除订单”和“评价订单”
