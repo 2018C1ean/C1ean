@@ -24,14 +24,14 @@ public class User {
     private String location1;   //地址1
     private String location2;   //地址2
     private String location3;   //地址3
-
+    private String background_img;
     public User() {
     }
 
-    @Generated(hash = 934457007)
+    @Generated(hash = 1387168852)
     public User(Long id, String name, String img, @NotNull String password,
             @NotNull String tel, String location1, String location2,
-            String location3) {
+            String location3, String background_img) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -40,6 +40,15 @@ public class User {
         this.location1 = location1;
         this.location2 = location2;
         this.location3 = location3;
+        this.background_img = background_img;
+    }
+
+    public String getBackground_img() {
+        return background_img;
+    }
+
+    public void setBackground_img(String background_img) {
+        this.background_img = background_img;
     }
 
     public String getLocation1() {
@@ -104,5 +113,10 @@ public class User {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    @Override
+    public String toString() {
+        return getName()+"\n"+getImg()+"\n"+getBackground_img();
     }
 }

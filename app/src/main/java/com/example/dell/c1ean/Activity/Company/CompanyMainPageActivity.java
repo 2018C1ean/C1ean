@@ -12,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.Fragment.Company.CompanyHomePageFragment;
 import com.example.dell.c1ean.Fragment.Company.CompanyOrdersFragment;
 import com.example.dell.c1ean.Fragment.Company.CompanyEventsFragment;
 import com.example.dell.c1ean.Fragment.PersonalPageFragment;
 import com.example.dell.c1ean.R;
 import com.gyf.barlibrary.ImmersionBar;
+import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.ycl.tabview.library.TabView;
 import com.ycl.tabview.library.TabViewChild;
 
@@ -41,9 +43,13 @@ public class CompanyMainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
+        SystemApplication.getInstance().addActivity(this);
+
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         user_id = ((BaseApplication)getApplication()).getUSER_ID();
+        //设置状态栏为白色
+        StatusBarUtils.setStatusBarColor(getWindow(),getResources().getColor(R.color.colorWhite),1);
         ImmersionBar.with(this).init();
         setContentView(R.layout.mainpage);
         initView();
@@ -116,7 +122,7 @@ public class CompanyMainPageActivity extends AppCompatActivity {
                 Toast.makeText(CompanyMainPageActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-                CompanyMainPageActivity.this.finish();
+                SystemApplication.getInstance().exit();
             }
             return true;
         }

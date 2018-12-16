@@ -33,6 +33,7 @@ import com.example.dell.c1ean.Util.VerticalScrollLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,6 +163,15 @@ public class UserHomePageFragment extends Fragment implements RecyclerViewStagge
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent = new Intent(getActivity(),ActivityDetailPageActivity.class);
+                intent.putExtra("activity_item_id",companyActivityList.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setData() {
@@ -189,7 +199,7 @@ public class UserHomePageFragment extends Fragment implements RecyclerViewStagge
          * 加载购买用户的滚动数据列表
          */
         //加载最新购买的前20名用户
-        orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id),OrderDao.Properties.State.eq(0)).list();
+        orderList = orderDao.queryBuilder().orderDesc(OrderDao.Properties.Id).limit(20).list();
 
         if (orderList.size() > 0){
             //加载用户电话
@@ -211,33 +221,37 @@ public class UserHomePageFragment extends Fragment implements RecyclerViewStagge
     //"专业保洁","家电清洗","家居养护","洗护服务"
     private String getFavourite() {
 
-        //查找该用户在每种类型下下订单的数量
-        Long zyby = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("专业保洁")).count();
-        Long jdqx = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("家电清洗")).count();
-        Long jjyh = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("家居养护")).count();
-        Long xhfw = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("洗护服务")).count();
+        if (user_id != null) {
+            //查找该用户在每种类型下下订单的数量
+            Long zyby = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("专业保洁")).count();
+            Long jdqx = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("家电清洗")).count();
+            Long jjyh = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("家居养护")).count();
+            Long xhfw = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.Type.eq("洗护服务")).count();
 
-        Long n[] = {zyby, jdqx, jjyh, xhfw};
-        Long max = zyby;
-        //获取数量最多的
-        for (int i = 1; i < n.length; i++) {
-            if (max < n[i]) {
-                max = n[i];
+            Long n[] = {zyby, jdqx, jjyh, xhfw};
+            Long max = zyby;
+            //获取数量最多的
+            for (int i = 1; i < n.length; i++) {
+                if (max < n[i]) {
+                    max = n[i];
+                }
             }
-        }
 
-        //根据数量返回相应的服务类型
-        if (max != 0) {
-            if (max.equals(zyby)) {
-                return "专业保洁";
-            } else if (max.equals(jdqx)) {
-                return "家电清洗";
-            } else if (max.equals(jjyh)) {
-                return "家居养护";
+            //根据数量返回相应的服务类型
+            if (max != 0) {
+                if (max.equals(zyby)) {
+                    return "专业保洁";
+                } else if (max.equals(jdqx)) {
+                    return "家电清洗";
+                } else if (max.equals(jjyh)) {
+                    return "家居养护";
+                } else {
+                    return "洗护服务";
+                }
             } else {
-                return "洗护服务";
+                return null;
             }
-        } else {
+        }else {
             return null;
         }
     }

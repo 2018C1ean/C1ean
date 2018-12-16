@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.example.dell.c1ean.Adapter.CompanyListItemAdapter;
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.Bean.Company;
 import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.R;
@@ -35,6 +36,7 @@ public class CompanyManageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.allcompany);
+        SystemApplication.getInstance().addActivity(this);
 
         initView();
     }

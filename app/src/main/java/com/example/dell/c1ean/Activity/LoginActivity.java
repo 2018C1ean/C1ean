@@ -6,20 +6,24 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Activity.Company.CompanyMainPageActivity;
 import com.example.dell.c1ean.Activity.User.UserMainPageActivity;
 import com.example.dell.c1ean.Activity.Worker.WorkerMainPageActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.DAO.LoginDAO;
 import com.example.dell.c1ean.R;
 import com.gyf.barlibrary.ImmersionBar;
+import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 
 /**
  * Created by 李雯晴 on 2018/11/21.
@@ -33,16 +37,20 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     private Spinner spinner;
     private LoginDAO loginDAO;
+    private TextView ignore_login;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         ImmersionBar.with(this).init();
+        SystemApplication.getInstance().addActivity(this);
 
+        //设置状态栏为白色
+        StatusBarUtils.setStatusBarColor(getWindow(), getResources().getColor(R.color.colorWhite), 1);
         initView();
     }
 
@@ -53,9 +61,20 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         spinner = findViewById(R.id.userType);
         back = findViewById(R.id.back);
+        ignore_login = findViewById(R.id.ignore_login);
+
         loginDAO = new LoginDAO((BaseApplication) getApplication());    //创建loginDAO
 
         spinner.setSelection(0);    //设置默认选项
+
+        ignore_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, UserMainPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,37 +82,37 @@ public class LoginActivity extends AppCompatActivity {
                 String phone = tel.getEditText().getText().toString();
                 String password = pwd.getEditText().getText().toString();
 
-                tel.setErrorEnabled(false);
-                pwd.setErrorEnabled(false);
-
                 if (spinner.getSelectedItem() != null) {
                     String usertype = spinner.getSelectedItem().toString();
-                    if (validateTel(phone) && validatePassword(password)) {    //判断手机号是否为空或者密码是否为空或者密码长度是否为6~20位
-                        ((BaseApplication) getApplication()).setUSER_ID(loginDAO.getId(usertype, phone));    //设置全局变量
-                        if (loginDAO.existValid(usertype, phone)) {   //判断是否存在此用户
-                            if (loginDAO.passwordValid(usertype, phone, password)) {   //判断密码是否正确
-                                switch (usertype) {
-                                    case "用户":
-                                        Intent intent = new Intent(LoginActivity.this, UserMainPageActivity.class);
-                                        startActivity(intent);  //跳转到用户首页
-                                        finish();
-                                        break;
-                                    case "家政人员":
-                                        Intent intent1 = new Intent(LoginActivity.this, WorkerMainPageActivity.class);
-                                        startActivity(intent1);
-                                        finish();
-                                        break;
-                                    case "家政公司":
-                                        Intent intent2 = new Intent(LoginActivity.this, CompanyMainPageActivity.class);
-                                        startActivity(intent2);
-                                        finish();
-                                        break;
+                    //判断手机号是否为空或者密码是否为空或者密码长度是否为6~20位
+                    if (validateTel(phone)) {
+                        if (validatePassword(password)) {
+                            if (loginDAO.existValid(usertype, phone)) {   //判断是否存在此用户
+                                if (loginDAO.passwordValid(usertype, phone, password)) {   //判断密码是否正确
+                                    ((BaseApplication) getApplication()).setUSER_ID(loginDAO.getId(usertype, phone));    //设置全局变量
+                                    switch (usertype) {
+                                        case "用户":
+                                            Intent intent = new Intent(LoginActivity.this, UserMainPageActivity.class);
+                                            startActivity(intent);  //跳转到用户首页
+                                            finish();
+                                            break;
+                                        case "家政人员":
+                                            Intent intent1 = new Intent(LoginActivity.this, WorkerMainPageActivity.class);
+                                            startActivity(intent1);
+                                            finish();
+                                            break;
+                                        case "家政公司":
+                                            Intent intent2 = new Intent(LoginActivity.this, CompanyMainPageActivity.class);
+                                            startActivity(intent2);
+                                            finish();
+                                            break;
+                                    }
+                                } else {
+                                    showError(pwd, "密码错误");
                                 }
                             } else {
-                                showError(pwd, "密码错误");
+                                Toast.makeText(LoginActivity.this, "用户不存在，请先注册", Toast.LENGTH_LONG).show();
                             }
-                        } else {
-                            Toast.makeText(LoginActivity.this, "用户不存在，请先注册", Toast.LENGTH_LONG).show();
                         }
                     }
                 } else {
@@ -157,6 +176,16 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(LoginActivity.this, LoginRegisterActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

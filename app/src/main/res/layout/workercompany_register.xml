@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
     <LinearLayout
         android:padding="10dp"
         android:gravity="center_vertical"
@@ -16,6 +18,7 @@
             android:src="@mipmap/left"
             android:layout_height="35dp" />
     </LinearLayout>
+    <include layout="@layout/line"/>
     <TextView
         android:layout_below="@id/line"
         android:layout_width="match_parent"
@@ -133,4 +136,4 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/label_shape"/>
-</RelativeLayout>
+</LinearLayout>

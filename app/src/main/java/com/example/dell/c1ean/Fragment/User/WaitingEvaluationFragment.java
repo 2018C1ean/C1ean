@@ -39,7 +39,7 @@ public class WaitingEvaluationFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_order_list,container,false);
+        View view = inflater.inflate(R.layout.user_wait_evaluation_orders,container,false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         textView = view.findViewById(R.id.valuable);

@@ -6,8 +6,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="@dimen/activityImgWidth"
-        android:layout_height="@dimen/activityCardHeight"
-        app:cardCornerRadius="10dp">
+        android:layout_height="@dimen/activityCardHeight">
         <RelativeLayout
             android:layout_width="@dimen/activityImgWidth"
             android:layout_height="@dimen/activityCardHeight"

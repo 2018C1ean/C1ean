@@ -48,21 +48,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="eskii"
                     android:textColor="@color/colorWhite"
                     android:textSize="12sp" />
             </LinearLayout>
         </RelativeLayout>
 
         <LinearLayout
-            android:visibility="gone"
+            android:id="@+id/login_register"
             android:layout_width="match_parent"
             android:layout_height="42dp"
+            android:visibility="gone"
             android:layout_gravity="bottom|center_horizontal"
             android:background="#551a1b1a"
             android:orientation="horizontal">
 
             <RelativeLayout
+                android:id="@+id/login"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -84,6 +85,7 @@
                 android:background="#ffffff" />
 
             <RelativeLayout
+                android:id="@+id/register"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">

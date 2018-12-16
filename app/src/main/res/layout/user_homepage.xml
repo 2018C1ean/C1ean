@@ -6,19 +6,20 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:id="@+id/title_bar"
+        android:id="@+id/title"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorTheme"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical">
-
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:gravity="center_horizontal|center_vertical"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:typeface="serif" />
+            android:text="首页"
+            android:textColor="@color/colorTheme"/>
+        <include layout="@layout/line"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
@@ -39,9 +40,10 @@
         app:rippleColor="@color/colorGray" />
 
     <ScrollView
+        android:padding="@dimen/marginTop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_bar"
+        android:layout_below="@id/title"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -53,7 +55,6 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal">
 
                 <android.support.v7.widget.CardView
@@ -63,15 +64,15 @@
 
                     <com.youth.banner.Banner
                         android:id="@+id/banner"
-                        android:layout_width="350dp"
+                        android:layout_width="match_parent"
                         android:layout_height="208dp" />
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
             <com.example.dell.c1ean.Util.VerticalScrollLayout
                 android:id="@+id/buys_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/line"
                 android:layout_marginTop="10dp"
                 app:vsl_animDuration="800"
@@ -83,10 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buys_scroll"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/modle_shape"
+                android:background="@color/colorWhite"
                 android:orientation="vertical">
 
                 <TextView
@@ -243,8 +242,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/type_line"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/modle_shape"
                 android:gravity="center_horizontal|center_vertical"

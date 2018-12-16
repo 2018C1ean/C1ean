@@ -11,12 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dell.c1ean.Application.SystemApplication;
+import com.example.dell.c1ean.Fragment.User.AllOrderFragment;
 import com.example.dell.c1ean.Fragment.User.UserActivityFragment;
 import com.example.dell.c1ean.Fragment.User.UserHomePageFragment;
 import com.example.dell.c1ean.Fragment.User.UserOrdersFragment;
 import com.example.dell.c1ean.Fragment.PersonalPageFragment;
+import com.example.dell.c1ean.Fragment.User.WaitingEvaluationFragment;
+import com.example.dell.c1ean.Fragment.User.WaitingPayFragment;
 import com.example.dell.c1ean.R;
 import com.gyf.barlibrary.ImmersionBar;
+import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.ycl.tabview.library.TabView;
 import com.ycl.tabview.library.TabViewChild;
 
@@ -40,9 +45,13 @@ public class UserMainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         ImmersionBar.with(this).init();
+        SystemApplication.getInstance().addActivity(this);
+
+        //设置状态栏为白色
+        StatusBarUtils.setStatusBarColor(getWindow(),getResources().getColor(R.color.colorWhite),1);
         setContentView(R.layout.mainpage);
         initView();
 
@@ -110,7 +119,7 @@ public class UserMainPageActivity extends AppCompatActivity {
                 Toast.makeText(UserMainPageActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-                UserMainPageActivity.this.finish();
+                SystemApplication.getInstance().exit();
             }
             return true;
         }

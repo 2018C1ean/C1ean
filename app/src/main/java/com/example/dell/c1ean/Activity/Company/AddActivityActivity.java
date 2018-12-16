@@ -36,6 +36,7 @@ import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.Bean.CompanyActivity;
 import com.example.dell.c1ean.DAO.CompanyActivityDao;
 import com.example.dell.c1ean.R;
@@ -72,7 +73,7 @@ public class AddActivityActivity extends AppCompatActivity {
     public static final int IMAGE_REQUEST_CODE_3 = 23;
     public static final int CAMERA_CROP_PHOTO_3 = 33;
     public static final int ALBUM_CROP_PHOTO_3 = 43;
-    private Uri camera_img_uri; //拍完照照片的uri
+    private static Uri camera_img_uri; //拍完照照片的uri
     private File tempFile;  //使用相机拍照后保存的地址
     public Uri album_img_uri;   //相册中选取照片的uri
     private static int current_api_version;   //手机的api版本
@@ -80,9 +81,6 @@ public class AddActivityActivity extends AppCompatActivity {
     private CompanyActivityDao companyActivityDao;
     private String img_file1, img_file2, img_file3;
     private String[] typeArray = {"专业保洁", "家电清洗", "家居养护", "洗护服务"};
-    private int n1 = 0;
-    private int n2 = 0;
-    private int n3 = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +91,7 @@ public class AddActivityActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         ImmersionBar.with(this).init();
         company_id = ((BaseApplication) getApplication()).getUSER_ID();  //获取当前的用户id
-
+        SystemApplication.getInstance().addActivity(this);
         initView();
     }
 
@@ -507,7 +505,7 @@ public class AddActivityActivity extends AppCompatActivity {
                 Environment.MEDIA_MOUNTED);
     }
 
-    private String savePicture(Bitmap bitmap) {
+    public static String savePicture(Bitmap bitmap) {
         //设置时间格式
         SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         //获取当前系统时间
@@ -546,7 +544,7 @@ public class AddActivityActivity extends AppCompatActivity {
         }
     }
 
-    private Intent getCameraIntent() {
+    public static Intent getCameraIntent() {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(camera_img_uri, "image/*"); //设置路径和文件类型为图片
         intent.putExtra("crop", true);
@@ -557,7 +555,7 @@ public class AddActivityActivity extends AppCompatActivity {
         return intent;
     }
 
-    private Intent getImageIntent() {
+    public static Intent getImageIntent() {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.putExtra("crop", true);
         // aspectX aspectY 是宽高的比例

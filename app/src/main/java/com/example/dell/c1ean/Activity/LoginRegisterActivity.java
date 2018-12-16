@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Activity.ADMINISTRATOR.AdministratorActivity;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.R;
 import com.gyf.barlibrary.ImmersionBar;
 
@@ -44,6 +45,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         setContentView(R.layout.login_rigister);
+        SystemApplication.getInstance().addActivity(this);
 
         ImmersionBar.with(this).init();
 
@@ -178,27 +180,18 @@ public class LoginRegisterActivity extends AppCompatActivity {
         });
     }
 
-
-    /**
-     * 重写返回键，实现双击退出效果
-     */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (System.currentTimeMillis() - exitTime > 2000) {
-                Toast.makeText(LoginRegisterActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                LoginRegisterActivity.this.finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            SystemApplication.getInstance().exit(); //关闭整个程序
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

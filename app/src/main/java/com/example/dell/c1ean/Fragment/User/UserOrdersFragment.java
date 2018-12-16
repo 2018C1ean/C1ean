@@ -36,11 +36,13 @@ public class UserOrdersFragment extends Fragment {
         tabHost.setup();
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
-        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
-        inflater.inflate(R.layout.user_order_list,tabHost.getTabContentView());
+        inflater.inflate(R.layout.user_all_orders,tabHost.getTabContentView());
+        inflater.inflate(R.layout.user_wait_pay_orders,tabHost.getTabContentView());
+        inflater.inflate(R.layout.user_wait_evaluation_orders,tabHost.getTabContentView());
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("所有订单").setContent(R.id.line1));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("待支付").setContent(R.id.line1));
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("待评价").setContent(R.id.line1));
     }
+
+
 }

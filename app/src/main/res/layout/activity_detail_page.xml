@@ -17,23 +17,27 @@
             android:layout_width="35dp"
             android:src="@mipmap/left"
             android:layout_height="35dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务详情"/>
     </LinearLayout>
+    <include layout="@layout/line"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:scrollbars="none">
 
         <LinearLayout
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <com.youth.banner.Banner
                 android:id="@+id/activity_imgs"
                 android:layout_width="match_parent"
                 android:layout_height="230dp" />
-
             <RelativeLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
@@ -79,34 +83,26 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/rate_text_shape"
                     android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="6dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="好评率"
+                        android:text="星级评分"
                         android:textColor="@color/colorWhite"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/good_rate"
+                    <RatingBar
+                        android:id="@+id/average_star"
+                        style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="%"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="13sp" />
+                        android:isIndicator="true" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -162,12 +158,13 @@
             <include layout="@layout/line" />
 
                 <RelativeLayout
+                    android:padding="20dp"
                     android:id="@+id/evaluation_layout"
                     android:layout_marginTop="@dimen/marginTop"
                     android:layout_width="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_height="105dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/modle_shape">
 
                     <TextView
@@ -176,8 +173,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="@dimen/marginTop"
-                        android:layout_marginTop="@dimen/marginTop"
                         android:text="用户评价" />
 
                     <TextView
@@ -185,26 +180,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t1"
-                        android:layout_marginStart="@dimen/marginTop"
                         android:layout_marginTop="@dimen/marginTop"
                         android:text="暂无用户评价"
-                        android:textSize="@dimen/typeTextSize"
-                        android:visibility="gone" />
+                        android:textSize="@dimen/typeTextSize" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/order_user_name"
+                        android:layout_marginTop="@dimen/marginTop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t1"
-                        android:layout_marginStart="@dimen/marginTop"
-                        android:layout_marginTop="@dimen/marginTop"
                         android:text="eskii"
                         android:textSize="@dimen/typeTextSize" />
 
                     <TextView
                         android:id="@+id/evaluation_text"
                         android:layout_below="@id/order_user_name"
-                        android:layout_marginStart="@dimen/marginTop"
+                        android:visibility="gone"
                         android:layout_marginTop="@dimen/marginTop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -213,17 +206,17 @@
                     <RatingBar
                         android:id="@+id/evaluation_stars"
                         android:layout_below="@id/evaluation_text"
-                        android:layout_marginStart="@dimen/marginTop"
+                        android:visibility="gone"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:isIndicator="true" />
                     <ImageView
+                        android:id="@+id/more_evaluation"
                         android:layout_width="@dimen/rightImgSize"
                         android:layout_height="@dimen/rightImgSize"
                         android:background="@mipmap/right"
                         android:layout_alignParentRight="true"
-                        android:layout_marginEnd="@dimen/marginTop"
                         android:layout_centerInParent="true"/>
 
 
@@ -233,7 +226,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="@dimen/marginTop"
                 android:layout_marginEnd="5dp"
-                android:padding="@dimen/marginTop"
+                android:padding="20dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/modle_shape">
                     <TextView
@@ -250,11 +243,12 @@
                         android:text="..."/>
             </RelativeLayout>
             <RelativeLayout
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="@dimen/marginTop"
                 android:layout_width="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:padding="@dimen/marginTop"
+                android:padding="20dp"
                 android:background="@drawable/modle_shape"
                 android:layout_height="wrap_content">
                 <TextView
@@ -271,6 +265,14 @@
                     android:layout_marginTop="@dimen/marginTop"
                     android:text="..."/>
             </RelativeLayout>
+            <Button
+                android:layout_marginBottom="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/label_shape"
+                android:text="预定服务"
+                android:textColor="@color/colorWhite"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

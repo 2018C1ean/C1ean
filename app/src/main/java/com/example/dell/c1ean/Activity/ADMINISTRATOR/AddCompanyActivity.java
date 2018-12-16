@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.Bean.Company;
 import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.R;
@@ -29,6 +30,7 @@ public class AddCompanyActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addcompany);
+        SystemApplication.getInstance().addActivity(this);
 
         initView();
     }
