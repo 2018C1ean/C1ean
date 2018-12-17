@@ -31,7 +31,10 @@ import java.util.regex.Pattern;
 
 public class WorkerCompanyRegisterActivity extends AppCompatActivity {
 
-    private TextInputLayout t0, t1, t2, t3;
+    private TextInputLayout t0;
+    private TextInputLayout t1;
+    private TextInputLayout t2;
+    private TextInputLayout t3;
     private ImageView back;
     private Button register;
     private RegisterDAO registerDAO;
@@ -96,7 +99,7 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
                             if (type.equals("家政人员")) {
                                 if (registerDAO.existValid(type, phone)) {    //验证是否存在此工作人员
 
-                                    if (registerDAO.isRegister(type, phone,code)) {    //验证是否已注册
+                                    if (registerDAO.isRegister(type, phone, code)) {    //验证是否已注册
                                         showError(t1, "该用户已注册");
                                     } else {
 
@@ -112,7 +115,7 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
                             } else {
                                 if (registerDAO.existValid(type, phone)) { //验证数据库是否存在该公司
 
-                                    if (registerDAO.isRegister(type, phone,code)) {    //验证是否注册
+                                    if (registerDAO.isRegister(type, phone, code)) {    //验证是否注册
                                         showError(t0, "该公司代码已注册");
                                     } else {
                                         registerDAO.setPassword(type, phone, pwd);    //设置密码
@@ -152,7 +155,7 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
      * @param string
      * @return
      */
-    private boolean validateCode(String string) {
+    public boolean validateCode(String string) {
         String format = "[0-9]{8}[-]\\p{Upper}{1}";
         if (!string.matches(format)) {
             showError(t0, "公司代码格式错误");
@@ -170,7 +173,7 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
      * @param phone
      * @return
      */
-    private boolean validateTel(String phone) {
+    public boolean validateTel(String phone) {
         if (phone.isEmpty()) {
             showError(t1, "手机号不能为空");
             return false;
@@ -180,13 +183,8 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
             if (phone.length() < 11 && !matcher.matches()) {
                 showError(t1, "手机号格式错误");
                 return false;
-            } else {
-                if (registerDAO.existValid("用户", phone)) {
-                    showError(t1, "该手机号已注册");
-                    return false;
-                } else {
-                    return true;
-                }
+            }else {
+                return true;
             }
 
         }
@@ -198,7 +196,7 @@ public class WorkerCompanyRegisterActivity extends AppCompatActivity {
      * @param password
      * @return
      */
-    private boolean validatePassword(String password, String cpassword) {
+    public boolean validatePassword(String password, String cpassword) {
         if (password.isEmpty()) {
             showError(t2, "密码不能为空");
             return false;
