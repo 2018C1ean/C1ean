@@ -29,7 +29,7 @@
         <activity android:name=".Activity.ADMINISTRATOR.CompanyItemActivity"/>
         <activity android:name=".Activity.Company.CompanyMainPageActivity"/>
         <activity android:name=".Activity.Worker.WorkerMainPageActivity"/>
-        <activity android:name=".Activity.Company.AddActivityActivity"/>
+        <activity android:name=".Activity.Company.ManageActivityActivity"/>
         <activity android:name=".Activity.ActivityDetailPageActivity"/>
         <activity android:name=".Activity.User.QuickOrderActivity"/>
         <activity android:name=".Activity.User.EvaluationsActivity"/>

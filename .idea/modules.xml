@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/C1ean-LWQ.iml" filepath="$PROJECT_DIR$/C1ean-LWQ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YISAO.iml" filepath="$PROJECT_DIR$/YISAO.iml" />
       <module fileurl="file://F:\AndroidStudioProjects\C1ean-LWQ\YISAO.iml" filepath="F:\AndroidStudioProjects\C1ean-LWQ\YISAO.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://F:\AndroidStudioProjects\C1ean-LWQ\app\app.iml" filepath="F:\AndroidStudioProjects\C1ean-LWQ\app\app.iml" />
     </modules>
   </component>
 </project>

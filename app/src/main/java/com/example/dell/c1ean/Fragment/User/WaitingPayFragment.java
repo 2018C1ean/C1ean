@@ -19,17 +19,18 @@ import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.OrderDao;
 import com.example.dell.c1ean.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 李雯晴 on 2018/12/11.
  */
 
-public class WaitingPayFragment extends Fragment{
+public class WaitingPayFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerViewListViewAdapter listViewAdapter;
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
     private CompanyActivityDao companyActivityDao;
     private CompanyDao companyDao;
     private OrderDao orderDao;
@@ -40,7 +41,7 @@ public class WaitingPayFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.user_wait_pay_orders,container,false);
+        View view = inflater.inflate(R.layout.user_wait_pay_orders, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         textView = view.findViewById(R.id.valuable);
@@ -55,12 +56,14 @@ public class WaitingPayFragment extends Fragment{
         return view;
     }
 
-    private void setData(){
+    private void setData() {
 
-        orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id),OrderDao.Properties.State.eq(0)).list();
+        if (user_id != null) {
+            orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.State.eq(0)).list();
+        }
     }
 
-    private void initView(){
+    private void initView() {
         if (orderList.size() >= 1) {
             textView.setVisibility(View.INVISIBLE);
             listViewAdapter = new RecyclerViewListViewAdapter(getContext(), orderList, companyDao, companyActivityDao);

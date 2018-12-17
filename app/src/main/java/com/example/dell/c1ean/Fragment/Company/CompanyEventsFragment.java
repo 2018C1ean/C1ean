@@ -3,16 +3,14 @@ package com.example.dell.c1ean.Fragment.Company;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -23,10 +21,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.dell.c1ean.Activity.Company.AddActivityActivity;
 import com.example.dell.c1ean.Activity.Company.CompanyMainPageActivity;
+import com.example.dell.c1ean.Activity.Company.ManageActivityActivity;
 import com.example.dell.c1ean.Adapter.RecyclerViewStaggeredAdapter;
 import com.example.dell.c1ean.Application.BaseApplication;
 import com.example.dell.c1ean.Bean.CompanyActivity;
@@ -34,21 +31,14 @@ import com.example.dell.c1ean.DAO.CompanyActivityDao;
 import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.OrderDao;
 import com.example.dell.c1ean.R;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
-
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
-
-//import static com.example.dell.c1ean.Activity.Company.CompanyMainPageActivity.USER_ID;
 
 /**
  * Created by 李雯晴 on 2018/12/5.
  */
 
-public class CompanyEventsFragment extends Fragment {
+public class CompanyEventsFragment extends Fragment implements RecyclerViewStaggeredAdapter.OnItemClickListener{
 
     private TextView valuable;
     private FloatingActionButton fab;   //浮动添加活动按钮
@@ -108,7 +98,7 @@ public class CompanyEventsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddActivityActivity.class);
+                Intent intent = new Intent(getActivity(), ManageActivityActivity.class);
                 startActivity(intent);
             }
         });
@@ -118,6 +108,7 @@ public class CompanyEventsFragment extends Fragment {
             valuable.setVisibility(View.VISIBLE);
         }else {
             recyclerViewStaggeredAdapter = new RecyclerViewStaggeredAdapter(getContext(), companyActivityList, companyDao, orderDao);
+            recyclerViewStaggeredAdapter.setItemClickListener(this);
             recyclerView.setAdapter(recyclerViewStaggeredAdapter);
             //布局管理器
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -153,4 +144,22 @@ public class CompanyEventsFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onItemClick(Long item_id) {
+        Intent intent = new Intent(getActivity(), ManageActivityActivity.class);
+        intent.putExtra("activity_item_id",item_id);
+//        startActivityForResult(intent,1);
+        startActivity(intent);
+    }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1&&resultCode == 10){
+//            CompanyMainPageActivity companyMainPageActivity = (CompanyMainPageActivity)getActivity();
+//            FragmentManager fragmentManager = companyMainPageActivity.getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+////            fragmentTransaction.replace(R.)
+//        }
+//    }
 }

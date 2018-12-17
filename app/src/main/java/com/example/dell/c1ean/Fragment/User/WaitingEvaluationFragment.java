@@ -19,6 +19,7 @@ import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.OrderDao;
 import com.example.dell.c1ean.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class WaitingEvaluationFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private RecyclerViewListViewAdapter listViewAdapter;
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
     private CompanyActivityDao companyActivityDao;
     private CompanyDao companyDao;
     private OrderDao orderDao;
@@ -55,8 +56,10 @@ public class WaitingEvaluationFragment extends Fragment{
     }
 
     private void setData(){
-        orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id),OrderDao.Properties.State.eq(3)).list();
-    }
+        if (user_id  != null) {
+            orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id), OrderDao.Properties.State.eq(3)).list();
+        }
+        }
 
     private void initView(){
         if (orderList.size() >= 1) {

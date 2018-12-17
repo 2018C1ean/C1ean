@@ -19,6 +19,7 @@ import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.DAO.OrderDao;
 import com.example.dell.c1ean.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class AllOrderFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerViewListViewAdapter listViewAdapter;
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
     private CompanyActivityDao companyActivityDao;
     private CompanyDao companyDao;
     private OrderDao orderDao;
@@ -58,9 +59,10 @@ public class AllOrderFragment extends Fragment {
 
     private void setData() {
 
-        //加载当前用户的所有订单（应使用分页，待优化）
-        orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id)).list();
-
+        if (user_id != null) {
+            //加载当前用户的所有订单（应使用分页，待优化）
+            orderList = orderDao.queryBuilder().where(OrderDao.Properties.User_id.eq(user_id)).list();
+        }
     }
 
     private void initView() {

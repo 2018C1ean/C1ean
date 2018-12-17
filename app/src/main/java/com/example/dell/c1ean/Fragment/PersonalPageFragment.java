@@ -28,7 +28,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dell.c1ean.Activity.Company.AddActivityActivity;
 import com.example.dell.c1ean.Activity.LoginActivity;
 import com.example.dell.c1ean.Activity.RegisterTypeActivity;
 import com.example.dell.c1ean.Application.BaseApplication;
@@ -42,10 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.dell.c1ean.Activity.Company.AddActivityActivity.getCameraIntent;
-import static com.example.dell.c1ean.Activity.Company.AddActivityActivity.getImageIntent;
-import static com.example.dell.c1ean.Activity.Company.AddActivityActivity.hasSdcard;
-import static com.example.dell.c1ean.Activity.Company.AddActivityActivity.savePicture;
+import static com.example.dell.c1ean.Activity.Company.ManageActivityActivity.hasSdcard;
+import static com.example.dell.c1ean.Activity.Company.ManageActivityActivity.savePicture;
 
 /**
  * Created by DELL on 2018/12/4.
@@ -84,8 +81,9 @@ public class PersonalPageFragment extends Fragment {
         user_id = ((BaseApplication) getActivity().getApplication()).getUSER_ID();
 
         userDao = ((BaseApplication) getActivity().getApplication()).getUserDao();
-        user = userDao.queryBuilder().where(UserDao.Properties.Id.eq(user_id)).unique();
-
+        if (user_id != null) {
+            user = userDao.queryBuilder().where(UserDao.Properties.Id.eq(user_id)).unique();
+        }
         login_register = view.findViewById(R.id.login_register);
         login = view.findViewById(R.id.login);
         register = view.findViewById(R.id.register);
@@ -143,12 +141,12 @@ public class PersonalPageFragment extends Fragment {
             });
 
             user_name.setText(user.getName());  //设置用户名
-//            //设置用户的背景图
+            //设置用户的背景图
             if (user.getBackground_img() != null) {
                 Bitmap bitmap1 = BitmapFactory.decodeFile(user.getBackground_img());
                 user_back.setImageBitmap(bitmap1);
             }
-//            //设置用户的头像
+            //设置用户的头像
             if (user.getImg() != null) {
                 Bitmap bitmap2 = BitmapFactory.decodeFile(user.getImg());
                 user_img.setImageBitmap(bitmap2);
@@ -156,6 +154,8 @@ public class PersonalPageFragment extends Fragment {
 
         } else {
             login_register.setVisibility(View.VISIBLE);
+            change_account.setVisibility(View.INVISIBLE);
+            out_account.setVisibility(View.INVISIBLE);
         }
     }
 

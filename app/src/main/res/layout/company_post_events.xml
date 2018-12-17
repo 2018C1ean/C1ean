@@ -312,6 +312,36 @@
                 android:text="发布"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/activityTextSize" />
+            <LinearLayout
+                android:id="@+id/manage_line"
+                android:visibility="gone"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/line7"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/update"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/label_shape"
+                    android:text="编辑"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/activityTextSize" />
+                <Button
+                    android:id="@+id/delete"
+                    android:layout_weight="1"
+                    android:text="删除"
+                    android:layout_marginStart="@dimen/marginTop"
+                    android:background="@drawable/label_shape"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/activityTextSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
