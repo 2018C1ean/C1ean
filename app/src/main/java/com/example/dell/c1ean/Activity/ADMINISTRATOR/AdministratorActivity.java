@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Activity.LoginRegisterActivity;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.R;
 
 /**
@@ -22,6 +23,7 @@ public class AdministratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.administrator_page);
+        SystemApplication.getInstance().addActivity(this);
 
         companyManage = findViewById(R.id.insert);
         systemData = findViewById(R.id.data);

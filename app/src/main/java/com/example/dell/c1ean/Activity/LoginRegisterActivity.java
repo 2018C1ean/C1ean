@@ -23,7 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Activity.ADMINISTRATOR.AdministratorActivity;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * Created by 李雯晴 on 2018/11/29.
@@ -40,7 +42,13 @@ public class LoginRegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
         setContentView(R.layout.login_rigister);
+        SystemApplication.getInstance().addActivity(this);
+
+        ImmersionBar.with(this).init();
+
         initViews();
         initAnims();
     }
@@ -135,7 +143,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         ObjectAnimator alphaLogin = ObjectAnimator.ofFloat(tvLogin, "alpha", 0, 1);
         ObjectAnimator alphaRegister = ObjectAnimator.ofFloat(tvRegister, "alpha", 0, 1);
         final AnimatorSet bottomAnim = new AnimatorSet();
-        bottomAnim.setDuration(800);
+        bottomAnim.setDuration(500);
         //同时执行控件平移和alpha渐变动画
         bottomAnim.play(tranLogin).with(tranRegister).with(alphaLogin).with(alphaRegister);
 
@@ -159,7 +167,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         ObjectAnimator scaleXLogo = ObjectAnimator.ofFloat(ivLogo, "scaleX", 1f, 0.75f);
         ObjectAnimator scaleYLogo = ObjectAnimator.ofFloat(ivLogo, "scaleY", 1f, 0.75f);
         AnimatorSet logoAnim = new AnimatorSet();
-        logoAnim.setDuration(800);
+        logoAnim.setDuration(500);
         logoAnim.play(tranLogo).with(scaleXLogo).with(scaleYLogo);
         logoAnim.start();
         logoAnim.addListener(new AnimatorListenerAdapter() {
@@ -172,19 +180,16 @@ public class LoginRegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
 
-    /**
-     * 重写返回键，实现双击退出效果
-     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (System.currentTimeMillis() - exitTime > 2000) {
-                Toast.makeText(LoginRegisterActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                LoginRegisterActivity.this.finish();
-            }
+            SystemApplication.getInstance().exit(); //关闭整个程序
             return true;
         }
         return super.onKeyDown(keyCode, event);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_height="wrap_content"
+            android:text="我发布的活动"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:textColor="@color/colorTheme"/>
+        <include layout="@layout/line"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_below="@id/title"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/valuable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="空空如也~"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_below="@id/valuable"
+        android:padding="10dp"
+
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+    </RelativeLayout></ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@mipmap/white_add"
+        app:backgroundTint="@color/colorTheme"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        android:clickable="true"
+        app:rippleColor="@color/colorGray"
+        android:onClick="rotate"/>
+</RelativeLayout>

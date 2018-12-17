@@ -66,18 +66,18 @@ public class RegisterDAO {
      * 阿姨和公司进行注册时要判断他们是否已经注册(已设置了密码看做已注册)
      * @return
      */
-    public boolean isRegister(String type,String tel){
+    public boolean isRegister(String type,String tel,String code){
         QueryBuilder queryBuilder;
         if (type.equals("家政人员")){
             queryBuilder = workerDao.queryBuilder().where(WorkerDao.Properties.Worker_tel.eq(tel)); //找到表中电话符合条件的worker
-            Worker worker = (Worker) queryBuilder.unique();
+            Worker worker = (Worker) queryBuilder.list().get(0);
             String pwd = worker.getPassword();
             if (pwd.isEmpty()){
                 return false;   //未注册返回false
             }return true;
         }else {
-            queryBuilder = companyDao.queryBuilder().where(CompanyDao.Properties.Company_tel.eq(tel));
-            Company company = (Company) queryBuilder.unique();
+            queryBuilder = companyDao.queryBuilder().where(CompanyDao.Properties.Company_tel.eq(tel),CompanyDao.Properties.Company_code.eq(code));
+            Company company = (Company) queryBuilder.list().get(0);
 
             if (company.getPassword()==null){
                 return false;
@@ -90,12 +90,12 @@ public class RegisterDAO {
         QueryBuilder queryBuilder;
         if (type.equals("家政人员")){
             queryBuilder = workerDao.queryBuilder().where(WorkerDao.Properties.Worker_tel.eq(tel)); //找到表中电话符合条件的worker
-            Worker worker = (Worker) queryBuilder.unique();
+            Worker worker = (Worker) queryBuilder.list().get(0);
             worker.setPassword(pwd);    //设置密码
             workerDao.update(worker);
         }else {
             queryBuilder = companyDao.queryBuilder().where(CompanyDao.Properties.Company_tel.eq(tel));
-            Company company = (Company) queryBuilder.unique();
+            Company company = (Company) queryBuilder.list().get(0);
             company.setPassword(pwd);
             companyDao.update(company);
         }

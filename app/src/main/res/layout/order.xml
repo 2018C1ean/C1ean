@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/order_title"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/reservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="72dp"
+        android:background="@drawable/label_shape"
+        android:text="预订"
+        app:layout_constraintEnd_toStartOf="@+id/cancle"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <Button
+        android:id="@+id/cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/label_shape"
+        android:text="取消"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="223dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+
+    <TextView
+        android:id="@+id/clean_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="清扫类别"
+        android:textSize="24sp"
+
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="183dp"
+        android:layout_height="40dp"
+        android:background="@drawable/text_noput"
+        android:padding="5dp"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="232dp"
+        tools:ignore="MissingConstraints" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预约时间"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="240dp" />
+
+    <EditText
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        tools:ignore="LabelFor,MissingConstraints,TextFields"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="166dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="房间大小"
+        android:textSize="24sp"
+
+        tools:ignore="HardcodedText,MissingConstraints"
+
+
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="300dp" />
+
+    <EditText
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:inputType=""
+        tools:ignore="LabelFor,MissingConstraints"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="346dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="家政公司"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <EditText
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        tools:ignore="LabelFor,MissingConstraints,TextFields"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+</android.support.constraint.ConstraintLayout>
+
+

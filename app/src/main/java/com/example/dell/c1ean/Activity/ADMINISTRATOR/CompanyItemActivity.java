@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dell.c1ean.Application.BaseApplication;
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.Bean.Company;
 import com.example.dell.c1ean.DAO.CompanyDao;
 import com.example.dell.c1ean.R;
@@ -21,7 +22,7 @@ import com.example.dell.c1ean.R;
 
 public class CompanyItemActivity extends AppCompatActivity {
 
-    private TextInputLayout code,tel,name,location,introduction;
+    private TextInputLayout code,tel,name,location,introduction,pwd;
     private Button upadteCompany,deleteCompany,back;
     private CompanyDao companyDao;
     private Long companyId;
@@ -29,6 +30,7 @@ public class CompanyItemActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.company_item);
+        SystemApplication.getInstance().addActivity(this);
 
         companyId = getIntent().getLongExtra("companyId",0);    //获取公司列表界面（CompanyItemActivity）传过来的公司id
 
@@ -43,6 +45,7 @@ public class CompanyItemActivity extends AppCompatActivity {
         introduction = findViewById(R.id.introduction);
         upadteCompany = findViewById(R.id.updateCompany);
         deleteCompany = findViewById(R.id.deleteCompany);
+        pwd = findViewById(R.id.pwd);
         back = findViewById(R.id.back);
         BaseApplication baseApplication = (BaseApplication)getApplication();
         companyDao = baseApplication.getCompanyDao();
@@ -53,7 +56,8 @@ public class CompanyItemActivity extends AppCompatActivity {
         tel.getEditText().setText(company.getCompany_tel());
         name.getEditText().setText(company.getCompany_name());
         location.getEditText().setText(company.getCompany_location());
-        introduction.getEditText().setText(company.getPassword());
+        introduction.getEditText().setText(company.getIntroduction());
+        pwd.getEditText().setText(company.getPassword());
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

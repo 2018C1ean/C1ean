@@ -27,12 +27,15 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
         public final static Property Type = new Property(2, String.class, "type", false, "TYPE");
-        public final static Property Img = new Property(3, String.class, "img", false, "IMG");
-        public final static Property Start_time = new Property(4, String.class, "start_time", false, "START_TIME");
-        public final static Property End_time = new Property(5, String.class, "end_time", false, "END_TIME");
-        public final static Property Price = new Property(6, float.class, "price", false, "PRICE");
-        public final static Property Company_id = new Property(7, long.class, "company_id", false, "COMPANY_ID");
-        public final static Property Uses = new Property(8, int.class, "uses", false, "USES");
+        public final static Property Img1 = new Property(3, String.class, "img1", false, "IMG1");
+        public final static Property Img2 = new Property(4, String.class, "img2", false, "IMG2");
+        public final static Property Img3 = new Property(5, String.class, "img3", false, "IMG3");
+        public final static Property Start_time = new Property(6, String.class, "start_time", false, "START_TIME");
+        public final static Property End_time = new Property(7, String.class, "end_time", false, "END_TIME");
+        public final static Property Price = new Property(8, float.class, "price", false, "PRICE");
+        public final static Property Company_id = new Property(9, long.class, "company_id", false, "COMPANY_ID");
+        public final static Property Uses = new Property(10, String.class, "uses", false, "USES");
+        public final static Property Activity_decribes = new Property(11, String.class, "activity_decribes", false, "ACTIVITY_DECRIBES");
     }
 
 
@@ -51,12 +54,15 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"TITLE\" TEXT NOT NULL ," + // 1: title
                 "\"TYPE\" TEXT NOT NULL ," + // 2: type
-                "\"IMG\" TEXT NOT NULL ," + // 3: img
-                "\"START_TIME\" TEXT NOT NULL ," + // 4: start_time
-                "\"END_TIME\" TEXT NOT NULL ," + // 5: end_time
-                "\"PRICE\" REAL NOT NULL ," + // 6: price
-                "\"COMPANY_ID\" INTEGER NOT NULL ," + // 7: company_id
-                "\"USES\" INTEGER NOT NULL );"); // 8: uses
+                "\"IMG1\" TEXT NOT NULL ," + // 3: img1
+                "\"IMG2\" TEXT," + // 4: img2
+                "\"IMG3\" TEXT," + // 5: img3
+                "\"START_TIME\" TEXT NOT NULL ," + // 6: start_time
+                "\"END_TIME\" TEXT NOT NULL ," + // 7: end_time
+                "\"PRICE\" REAL NOT NULL ," + // 8: price
+                "\"COMPANY_ID\" INTEGER NOT NULL ," + // 9: company_id
+                "\"USES\" TEXT NOT NULL ," + // 10: uses
+                "\"ACTIVITY_DECRIBES\" TEXT NOT NULL );"); // 11: activity_decribes
     }
 
     /** Drops the underlying database table. */
@@ -75,12 +81,23 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         }
         stmt.bindString(2, entity.getTitle());
         stmt.bindString(3, entity.getType());
-        stmt.bindString(4, entity.getImg());
-        stmt.bindString(5, entity.getStart_time());
-        stmt.bindString(6, entity.getEnd_time());
-        stmt.bindDouble(7, entity.getPrice());
-        stmt.bindLong(8, entity.getCompany_id());
-        stmt.bindLong(9, entity.getUses());
+        stmt.bindString(4, entity.getImg1());
+ 
+        String img2 = entity.getImg2();
+        if (img2 != null) {
+            stmt.bindString(5, img2);
+        }
+ 
+        String img3 = entity.getImg3();
+        if (img3 != null) {
+            stmt.bindString(6, img3);
+        }
+        stmt.bindString(7, entity.getStart_time());
+        stmt.bindString(8, entity.getEnd_time());
+        stmt.bindDouble(9, entity.getPrice());
+        stmt.bindLong(10, entity.getCompany_id());
+        stmt.bindString(11, entity.getUses());
+        stmt.bindString(12, entity.getActivity_decribes());
     }
 
     @Override
@@ -93,12 +110,23 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         }
         stmt.bindString(2, entity.getTitle());
         stmt.bindString(3, entity.getType());
-        stmt.bindString(4, entity.getImg());
-        stmt.bindString(5, entity.getStart_time());
-        stmt.bindString(6, entity.getEnd_time());
-        stmt.bindDouble(7, entity.getPrice());
-        stmt.bindLong(8, entity.getCompany_id());
-        stmt.bindLong(9, entity.getUses());
+        stmt.bindString(4, entity.getImg1());
+ 
+        String img2 = entity.getImg2();
+        if (img2 != null) {
+            stmt.bindString(5, img2);
+        }
+ 
+        String img3 = entity.getImg3();
+        if (img3 != null) {
+            stmt.bindString(6, img3);
+        }
+        stmt.bindString(7, entity.getStart_time());
+        stmt.bindString(8, entity.getEnd_time());
+        stmt.bindDouble(9, entity.getPrice());
+        stmt.bindLong(10, entity.getCompany_id());
+        stmt.bindString(11, entity.getUses());
+        stmt.bindString(12, entity.getActivity_decribes());
     }
 
     @Override
@@ -112,12 +140,15 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // title
             cursor.getString(offset + 2), // type
-            cursor.getString(offset + 3), // img
-            cursor.getString(offset + 4), // start_time
-            cursor.getString(offset + 5), // end_time
-            cursor.getFloat(offset + 6), // price
-            cursor.getLong(offset + 7), // company_id
-            cursor.getInt(offset + 8) // uses
+            cursor.getString(offset + 3), // img1
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // img2
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // img3
+            cursor.getString(offset + 6), // start_time
+            cursor.getString(offset + 7), // end_time
+            cursor.getFloat(offset + 8), // price
+            cursor.getLong(offset + 9), // company_id
+            cursor.getString(offset + 10), // uses
+            cursor.getString(offset + 11) // activity_decribes
         );
         return entity;
     }
@@ -127,12 +158,15 @@ public class CompanyActivityDao extends AbstractDao<CompanyActivity, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setTitle(cursor.getString(offset + 1));
         entity.setType(cursor.getString(offset + 2));
-        entity.setImg(cursor.getString(offset + 3));
-        entity.setStart_time(cursor.getString(offset + 4));
-        entity.setEnd_time(cursor.getString(offset + 5));
-        entity.setPrice(cursor.getFloat(offset + 6));
-        entity.setCompany_id(cursor.getLong(offset + 7));
-        entity.setUses(cursor.getInt(offset + 8));
+        entity.setImg1(cursor.getString(offset + 3));
+        entity.setImg2(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setImg3(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setStart_time(cursor.getString(offset + 6));
+        entity.setEnd_time(cursor.getString(offset + 7));
+        entity.setPrice(cursor.getFloat(offset + 8));
+        entity.setCompany_id(cursor.getLong(offset + 9));
+        entity.setUses(cursor.getString(offset + 10));
+        entity.setActivity_decribes(cursor.getString(offset + 11));
      }
     
     @Override

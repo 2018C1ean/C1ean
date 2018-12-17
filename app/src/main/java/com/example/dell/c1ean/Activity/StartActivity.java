@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
+import com.example.dell.c1ean.Application.SystemApplication;
 import com.example.dell.c1ean.R;
 
 /**
@@ -19,7 +21,11 @@ private Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏
          setContentView(R.layout.start);
+        SystemApplication.getInstance().addActivity(this);
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +59,6 @@ private Handler handler = new Handler();
     @Override
     protected void onDestroy() {
         if (handler != null) {
-            //If token is null, all callbacks and messages will be removed.
             handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
