@@ -12,9 +12,4 @@ import com.example.dell.c1ean.R;
 
 public class CompanyHomePageActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.company_homepage);
-    }
 }
