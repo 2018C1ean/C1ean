@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -51,7 +52,7 @@ public class ActivityDetailPageActivity extends AppCompatActivity {
     private List<String> images = new ArrayList<>();    //轮播图图片路径队列
     private CompanyActivity companyActivity;    //当前界面所展示的活动
     private List<Order> orderList;
-
+    private Button cancle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,4 +178,5 @@ public class ActivityDetailPageActivity extends AppCompatActivity {
         }
         return order;
     }
+
 }
