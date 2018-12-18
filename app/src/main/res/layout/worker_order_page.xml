@@ -23,6 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:text="历史活动"
             android:textSize="18sp" />
     </LinearLayout>
@@ -30,6 +31,6 @@
         android:id="@+id/recyclerListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:padding="15dp"/>
 
 </LinearLayout>

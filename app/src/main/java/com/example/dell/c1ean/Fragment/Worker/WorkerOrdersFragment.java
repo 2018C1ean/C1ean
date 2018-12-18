@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.dell.c1ean.R;
 
 public class WorkerOrdersFragment extends Fragment {
     private TabHost tabHost;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -24,6 +26,7 @@ public class WorkerOrdersFragment extends Fragment {
         View view = inflater.inflate(R.layout.worker_order_page,container,false);
 
         tabHost = view.findViewById(android.R.id.tabhost);
+        recyclerView = view.findViewById(R.id.recyclerListView);
 
         initView();
         return view;
