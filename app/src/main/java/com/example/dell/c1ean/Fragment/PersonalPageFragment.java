@@ -107,7 +107,9 @@ public class PersonalPageFragment extends Fragment {
     }
 
     private void setView() {
-
+        /**
+         * 根据账号判定个人主页显示
+         */
         //如果获取到的用户id不为空
         if (user_id != null) {
             login.setOnClickListener(new View.OnClickListener() {
